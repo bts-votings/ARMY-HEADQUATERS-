@@ -1,1003 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARMY HEADQUARTERS</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ARMY HQ — The Global Home for BTS ARMY</title>
 <style>
   :root{
-    --paper:#faf7f2; --paper-warm:#f2ead9; --ink:#1d1a17; --ink-soft:#5c564d;
-    --plum:#5b2a5e; --plum-deep:#3c1a3e; --clay:#c1603f; --gold:#a97c2f;
-    --line:#ddd2bd; --card:#ffffff; --ok:#4a7a5e;
-    --red:#a83c3c; --amber:#b8842e; --green:#4a7a5e;
-    --sidebar-w:250px;
+    --ink:#1c1730;
+    --paper:#fbf7f0;
+    --paper-dim:#f2ece1;
+    --violet:#5b3a8e;
+    --violet-deep:#3d2461;
+    --lilac:#c9b6ea;
+    --gold:#d8a13b;
+    --line:#e4d9c8;
+    --radius:14px;
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --sidebar-w: 240px;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Iowan Old Style','Palatino Linotype',Georgia,serif;-webkit-font-smoothing:antialiased;}
-  .mono{font-family:'JetBrains Mono','SFMono-Regular',Menlo,Consolas,monospace;}
+  body{ margin:0; font-family: var(--font-body), sans-serif; background: var(--paper); color: var(--ink); line-height:1.5; }
+  h1,h2,h3{ font-family: var(--font-display), serif; margin:0; letter-spacing:-0.01em; }
   a{color:inherit;}
 
-  /* ===== APP SHELL ===== */
-  .app{display:flex;min-height:100vh;}
+  .app{ display:flex; min-height:100vh; }
 
-  /* ---- Sidebar ---- */
+  /* SIDEBAR */
   .sidebar{
-    width:var(--sidebar-w);flex-shrink:0;background:var(--plum-deep);color:#e9dde9;
-    padding:22px 14px 30px;position:sticky;top:0;height:100vh;overflow-y:auto;
+    width: var(--sidebar-w); flex-shrink:0;
+    background: linear-gradient(180deg, var(--violet-deep), #2a1846);
+    color: #f2ecff; position: sticky; top:0; height:100vh; overflow-y:auto;
+    padding: 24px 0 24px 0; z-index: 50;
   }
-  .sb-brand{display:flex;align-items:center;gap:9px;padding:4px 10px 20px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:14px;}
-  .sb-brand .mark{width:30px;height:30px;border-radius:7px;background:linear-gradient(155deg,var(--clay),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:#2a1330;flex-shrink:0;}
-  .sb-brand .name{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.06em;line-height:1.25;}
-  .sb-brand .name b{display:block;color:#fff;font-size:14px;}
-  .sb-group-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#9c86a0;padding:16px 12px 6px;}
-  .sb-link{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:7px;font-size:13.5px;text-decoration:none;color:#d9c9d9;cursor:pointer;margin-bottom:2px;}
-  .sb-link .ic{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
-  .sb-link:hover{background:rgba(255,255,255,.06);color:#fff;}
-  .sb-link.active{background:rgba(255,255,255,.12);color:#fff;font-weight:600;box-shadow:inset 3px 0 0 var(--clay);}
+  .sidebar-brand{ padding: 0 24px 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.12); margin-bottom: 16px; text-decoration:none; display:block; color:inherit; cursor:pointer; background:none; border-left:none; border-right:none; border-top:none; width:100%; text-align:left; font-family:inherit; }
+  .sidebar-brand .mark{ font-family: var(--font-display); font-size: 1.5rem; font-weight:600; letter-spacing:0.02em; }
+  .sidebar-brand .sub{ font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; opacity:0.6; margin-top:4px; }
+  .sidebar nav{ display:flex; flex-direction:column; gap:2px; padding: 0 12px; }
+  .sidebar .group-label{ font-size:0.65rem; text-transform:uppercase; letter-spacing:0.14em; opacity:0.45; padding: 16px 12px 6px 12px; }
+  .sidebar .nav-link{
+    display:flex; align-items:center; gap:10px; padding: 9px 12px; border-radius: 8px;
+    text-decoration:none; color:#e9e0ff; font-size:0.88rem; cursor:pointer;
+    transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+    background:none; border:none; width:100%; text-align:left; font-family:inherit;
+  }
+  .sidebar .nav-link:hover{ background: rgba(255,255,255,0.08); padding-left:16px; }
+  .sidebar .nav-link.active{ background: rgba(255,255,255,0.14); color: #fff; font-weight:600; }
+  .nav-emoji{font-size:0.95rem; width:18px; text-align:center;}
+  .sidebar-footer{ padding: 18px 24px 0 24px; margin-top:16px; border-top:1px solid rgba(255,255,255,0.12); font-size:0.72rem; opacity:0.65; line-height:1.6; }
+  .sidebar-footer a{ color:#e9d9ff; text-decoration:underline; }
 
-  /* ---- Main column ---- */
-  .maincol{flex:1;min-width:0;display:flex;flex-direction:column;}
+  .sidebar-toggle{ display:none; position:fixed; top:14px; left:14px; z-index:200; background: var(--violet-deep); color:#fff; border:none; width:42px; height:42px; border-radius:10px; font-size:1.2rem; cursor:pointer; }
+  .sidebar-scrim{ display:none; }
+
+  .main{ flex:1; min-width:0; }
 
   .topbar{
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
-    padding:16px 28px;border-bottom:1px solid var(--line);background:var(--paper);
-    position:sticky;top:0;z-index:20;
+    display:flex; align-items:center; justify-content:space-between; padding: 16px 40px;
+    border-bottom:1px solid var(--line); position: sticky; top:0;
+    background: rgba(251,247,240,0.9); backdrop-filter: blur(6px); z-index:40;
   }
-  .topbar .page-title{font-size:20px;color:var(--plum-deep);}
-  .topbar .page-title .eyebrow{display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--clay);margin-bottom:3px;}
-  .topbar-right{display:flex;align-items:center;gap:12px;}
-  .clock{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-soft);}
-  .icon-btn{position:relative;background:var(--card);border:1px solid var(--line);border-radius:8px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;}
-  .icon-btn:hover{border-color:var(--plum);}
-  .icon-btn .dot-badge{position:absolute;top:5px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--clay);border:1.5px solid var(--paper);display:none;}
-  .profile-chip{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:5px 12px 5px 5px;cursor:pointer;font-size:13px;}
-  .profile-chip .av{width:26px;height:26px;border-radius:50%;background:linear-gradient(155deg,var(--plum),var(--clay));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;}
-
-  .content{padding:26px 28px 90px;max-width:1200px;width:100%;margin:0 auto;}
-  .page{display:none;}
-  .page.active{display:block;animation:fadein .25s ease;}
-  @keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-
-  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap;}
-  .section-head .tag{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--plum-deep);color:var(--paper);padding:3px 9px;border-radius:3px;letter-spacing:.08em;}
-  .section-head h2{font-size:21px;font-weight:400;margin:0;letter-spacing:-.01em;color:var(--plum-deep);}
-  .section-head .rule{flex:1;height:1px;background:var(--line);min-width:20px;}
-  .section-head .sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);}
-  section{margin-bottom:44px;}
-
-  .demo-flag{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;background:#fbf0dd;color:var(--gold);border:1px solid #ecd9b0;padding:2px 8px;border-radius:20px;}
-
-  .grid{display:grid;gap:16px;}
-  .grid-2{grid-template-columns:1fr 1fr;} .grid-3{grid-template-columns:repeat(3,1fr);} .grid-4{grid-template-columns:repeat(4,1fr);}
-  @media(max-width:900px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr;}}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;}
-  .card h3{margin:0 0 6px;font-size:15.5px;font-weight:600;color:var(--plum-deep);}
-  .card p{margin:0 0 10px;color:var(--ink-soft);font-size:13.5px;line-height:1.55;}
-  .card .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--clay);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
-
-  .badge{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.06em;padding:2px 7px;border-radius:20px;text-transform:uppercase;}
-  .badge.official{background:#eaf3ea;color:var(--ok);border:1px solid #cfe0cf;}
-  .badge.fan{background:#f3ecf3;color:var(--plum);border:1px solid #ddc9dd;}
-  .badge.community{background:#fbf0dd;color:var(--gold);border:1px solid #ecd9b0;}
-
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--paper-warm);border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:10px 15px;border-radius:6px;font-size:13.5px;transition:border-color .15s;cursor:pointer;font-family:inherit;}
-  .btn:hover{border-color:var(--plum);}
-  .btn.primary{background:var(--plum-deep);color:#fff;border-color:var(--plum-deep);}
-  .btn.primary:hover{background:var(--plum);}
-  .btn.small{padding:7px 12px;font-size:12.5px;}
-  .btn.pill{border-radius:999px;padding:11px 20px;}
-  .link-row{display:flex;flex-wrap:wrap;gap:10px;}
-
-  table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;padding:8px 6px;border-bottom:1px solid var(--line);}
-  td{padding:10px 6px;border-bottom:1px solid var(--line);}
-
-  .timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);}
-  .timeline li{position:relative;padding:0 0 22px 22px;}
-  .timeline li::before{content:"";position:absolute;left:-6px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--plum);}
-  .timeline li.done::before{background:var(--plum);}
-  .timeline .t-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.06em;}
-  .timeline .t-title{font-size:14.5px;margin:3px 0;} .timeline .t-desc{font-size:13px;color:var(--ink-soft);}
-
-  .checklist{list-style:none;margin:0;padding:0;}
-  .checklist li{display:flex;align-items:flex-start;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line);}
-  .checklist li:last-child{border-bottom:none;}
-  .checklist input[type=checkbox]{appearance:none;width:19px;height:19px;border:1.5px solid var(--plum);border-radius:3px;flex-shrink:0;margin-top:2px;cursor:pointer;position:relative;background:#fff;}
-  .checklist input[type=checkbox]:checked{background:var(--plum);}
-  .checklist input[type=checkbox]:checked::after{content:"✓";position:absolute;top:-2px;left:3px;color:#fff;font-size:13px;font-weight:900;}
-  .checklist label{font-size:14px;cursor:pointer;} .checklist .sub{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px;}
-  .checklist li.checked label{color:var(--ink-soft);text-decoration:line-through;}
-
-  .streak-row{display:flex;gap:22px;margin-bottom:18px;font-family:'JetBrains Mono',monospace;flex-wrap:wrap;}
-  .streak-box{text-align:center;} .streak-num{font-size:24px;color:var(--clay);font-weight:700;}
-  .streak-lab{font-size:10.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
-
-  .tz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;}
-  .tz-card{background:var(--paper-warm);border:1px solid var(--line);border-radius:6px;padding:14px;text-align:center;}
-  .tz-city{font-size:12px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;}
-  .tz-time{font-family:'JetBrains Mono',monospace;font-size:20px;color:var(--gold);margin-top:6px;}
-  .tz-input-row{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
-  .tz-input-row input[type=time]{background:var(--paper-warm);border:1px solid var(--line);color:var(--ink);padding:8px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;}
-
-  .official-note{display:flex;align-items:center;gap:10px;background:#eef3ee;border:1px solid #cfe0cf;color:var(--ok);padding:10px 16px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:12px;margin-bottom:18px;}
-
-  .home-hero{margin-bottom:26px;}
-  .home-hero-title{margin:0 0 14px;font-size:clamp(30px,4.5vw,44px);font-weight:400;letter-spacing:-.01em;color:var(--plum-deep);}
-  .home-hero-rule{height:1px;background:var(--line);margin-bottom:18px;}
-  .home-hero-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
-  .new-here-btn{margin-left:auto;background:var(--gold);border-color:var(--gold);color:#fff;font-weight:600;}
-  .new-here-btn:hover{background:#946b28;border-color:#946b28;}
-  @media(max-width:700px){.home-hero-row{justify-content:flex-start;}.new-here-btn{margin-left:0;}}
-
-  .country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;}
-  .country-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;cursor:pointer;transition:border-color .15s;}
-  .country-card:hover{border-color:var(--plum);}
-  .country-card .flag{font-size:24px;}
-  .country-card .cname{font-size:14px;color:var(--plum-deep);font-weight:600;margin-top:6px;}
-  .country-card .cnote{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;}
-
-  .glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;}
-  @media(max-width:900px){.glossary-grid{grid-template-columns:1fr;}}
-  .glossary-item{padding:10px 0;border-bottom:1px solid var(--line);}
-  .glossary-term{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--plum-deep);font-weight:700;}
-  .glossary-def{font-size:13px;color:var(--ink-soft);margin-top:2px;}
-
-  .faq details{border-bottom:1px solid var(--line);padding:12px 4px;}
-  .faq summary{cursor:pointer;font-size:14px;color:var(--plum-deep);}
-  .faq p{margin:10px 0 0;font-size:13.5px;color:var(--ink-soft);}
-
-  .chant-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:14px;}
-  .chant-card h3{margin:0 0 4px;}
-  .chant-lines{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.9;color:var(--ink);background:var(--paper-warm);border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin-top:8px;white-space:pre-wrap;}
-
-  .era-card{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid var(--line);}
-  .era-card:last-child{border-bottom:none;}
-
-  .member-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
-  @media(max-width:900px){.member-grid{grid-template-columns:repeat(3,1fr);}}
-  .member-card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 8px;text-align:center;}
-  .member-card .m-name{font-size:13px;color:var(--plum-deep);font-weight:600;}
-  .member-card .m-note{font-size:10.5px;color:var(--ink-soft);margin-top:3px;font-family:'JetBrains Mono',monospace;}
-
-  .pulse-hero{background:var(--plum-deep);color:#fff;border-radius:10px;padding:26px 28px;position:relative;overflow:hidden;margin-bottom:18px;}
-  .pulse-hero::before{content:"";position:absolute;right:-70px;top:-70px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(193,96,63,.32), transparent 70%);}
-  .pulse-hero h3{position:relative;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#d9c9d9;margin:0 0 8px;}
-  .pulse-trend{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;position:relative;}
-  .pulse-tag{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:20px;}
-
-  /* ---- Modals ---- */
-  .modal-overlay{position:fixed;inset:0;background:rgba(29,26,23,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
-  .modal-overlay.show{display:flex;}
-  .modal-box{background:var(--paper);border-radius:12px;max-width:420px;width:100%;padding:30px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3);}
-  .modal-box h2{margin:0 0 8px;font-size:20px;color:var(--plum-deep);}
-  .modal-box p{margin:0 0 18px;color:var(--ink-soft);font-size:13.5px;line-height:1.55;}
-  .modal-box input[type=text]{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:6px;font-family:inherit;font-size:14px;margin-bottom:14px;background:#fff;}
-  .modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
-  .modal-skip{margin-top:12px;text-align:center;}
-  .modal-skip a{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;}
-
-  .toast{position:fixed;bottom:24px;right:24px;background:var(--plum-deep);color:#fff;padding:13px 18px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:200;display:none;max-width:300px;}
-  .toast.show{display:block;animation:fadein .2s ease;}
-
-  .notif-panel{position:absolute;top:60px;right:28px;width:320px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.15);z-index:50;display:none;max-height:400px;overflow-y:auto;}
-  .notif-panel.show{display:block;}
-  .notif-panel .np-head{padding:12px 16px;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
-  .notif-item{padding:12px 16px;border-bottom:1px solid var(--line);font-size:13px;}
-  .notif-item:last-child{border-bottom:none;}
-  .notif-item .n-title{color:var(--plum-deep);font-weight:600;margin-bottom:2px;}
-  .notif-item .n-time{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-soft);}
-
-  .profile-panel{position:absolute;top:60px;right:28px;width:260px;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,.15);z-index:50;display:none;padding:16px;}
-  .profile-panel.show{display:block;}
-  .profile-panel .pp-name{font-size:15px;color:var(--plum-deep);font-weight:700;}
-  .profile-panel .pp-note{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin:4px 0 14px;}
-
-  .mobile-toggle{display:none;background:var(--card);border:1px solid var(--line);border-radius:8px;width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer;}
-  @media(max-width:860px){
-    .sidebar{position:fixed;left:-260px;z-index:60;transition:left .2s ease;box-shadow:0 0 40px rgba(0,0,0,.3);}
-    .sidebar.open{left:0;}
-    .mobile-toggle{display:flex;}
-    .content{padding:20px 16px 90px;}
-    .topbar{padding:14px 16px;}
+  .search-box{ flex:1; max-width:420px; display:flex; align-items:center; gap:8px; background: var(--paper-dim); border:1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size:0.85rem; color:#7a715f; }
+  .search-box input{ border:none; background:transparent; outline:none; flex:1; font-family: var(--font-body); font-size:0.85rem; color: var(--ink); }
+  .top-actions{ display:flex; align-items:center; gap:14px; }
+  .btn{
+    font-family: var(--font-body); font-size:0.82rem; font-weight:600; border-radius:999px; padding: 9px 18px;
+    border:1px solid var(--ink); background:transparent; color: var(--ink); cursor:pointer;
+    transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease; text-decoration:none; display:inline-block;
   }
+  .btn.primary{ background: var(--violet); border-color: var(--violet); color:#fff; }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn.primary:hover{ background: var(--violet-deep); }
 
-  footer{margin-top:40px;padding:30px 0 10px;border-top:1px solid var(--line);text-align:center;}
-  .footer-sub{font-size:12px;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;}
+  .hero{ padding: 72px 40px 56px 40px; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
+  .hero-eyebrow{ font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color: var(--violet); font-weight:700; margin-bottom:14px; }
+  .hero h1{ font-size: clamp(2.2rem, 5vw, 4.2rem); font-weight:600; max-width:820px; line-height:1.02; }
+  .hero h1 em{ font-style:italic; color: var(--violet); }
+  .hero p{ max-width:560px; color:#54503f; font-size:1.05rem; margin-top:18px; }
+  .hero-ctas{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+  .hero-deco{ position:absolute; right:-60px; top:-40px; width:340px; height:340px; border-radius:50%; background: radial-gradient(circle at 30% 30%, var(--lilac), transparent 70%); opacity:0.6; z-index:0; }
+
+  section.block{ padding: 56px 40px; border-bottom:1px solid var(--line); scroll-margin-top: 84px; }
+  .block-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:28px; gap:16px; flex-wrap:wrap; }
+  .block-head h2{ font-size:1.7rem; font-weight:600; }
+  .block-head .eyebrow{ font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color: var(--violet); font-weight:700; margin-bottom:6px; display:block; }
+  .block-head .desc{ color:#7a715f; font-size:0.9rem; max-width:480px; }
+
+  .member-row{ display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:12px; }
+  .member-card{ background:#fff; border:1px solid var(--line); border-radius: var(--radius); padding:16px; }
+  .member-card .name{ font-family: var(--font-display); font-weight:600; font-size:1.05rem; margin-bottom:6px; }
+  .member-card .status{ font-size:0.78rem; color:#7a715f; }
+  .dot{ display:inline-block; width:7px;height:7px;border-radius:50%; background: var(--gold); margin-right:6px; }
+
+  .news-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:18px; }
+  .news-card{ background:#fff; border:1px solid var(--line); border-radius: var(--radius); padding:20px; }
+  .tag{ display:inline-block; font-size:0.65rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:3px 9px; border-radius:999px; margin-bottom:10px; }
+  .tag.official{ background:#e7ddfb; color: var(--violet-deep); }
+  .tag.community{ background:#fbeecb; color:#8a5e12; }
+  .news-card h3{ font-size:1.05rem; font-weight:600; margin-bottom:8px; }
+  .news-card p{ font-size:0.85rem; color:#645d4d; margin:0; }
+  .news-card .meta{ font-size:0.72rem; color:#a39a85; margin-top:12px; }
+
+  .countdown-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
+  .countdown-card{ background: var(--violet-deep); color:#fff; border-radius: var(--radius); padding:22px; }
+  .countdown-card .label{ font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; opacity:0.7; margin-bottom:10px; }
+  .countdown-card .timer{ font-family: var(--font-display); font-size:1.9rem; font-weight:600; }
+  .calendar-list{ border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; background:#fff; }
+  .cal-row{ display:flex; align-items:center; gap:16px; padding:14px 20px; border-bottom:1px solid var(--line); font-size:0.88rem; }
+  .cal-row:last-child{border-bottom:none;}
+  .cal-date{ font-weight:700; color: var(--violet); min-width:70px; }
+  .cal-type{ font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:#a39a85; margin-left:auto; }
+
+  .explore-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:16px; }
+  .explore-card{ border:1px solid var(--line); background:#fff; border-radius: var(--radius); padding:22px; cursor:pointer; transition: box-shadow 0.15s ease, transform 0.15s ease; text-decoration:none; color:inherit; display:block; }
+  .explore-card:hover{ box-shadow: 0 8px 24px rgba(61,36,97,0.1); transform: translateY(-2px); }
+  .explore-card .icon{ font-size:1.6rem; margin-bottom:10px; display:block;}
+  .explore-card h3{ font-size:1rem; font-weight:600; margin-bottom:6px;}
+  .explore-card p{ font-size:0.8rem; color:#7a715f; margin:0;}
+
+  .map-wrap{ border:1px solid var(--line); border-radius: var(--radius); background:#fff; padding:24px; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:24px; }
+  @media (max-width: 800px){ .map-wrap{ grid-template-columns:1fr; } }
+  .map-visual{ background: linear-gradient(135deg, var(--paper-dim), #fff); border-radius:12px; display:flex; align-items:center; justify-content:center; min-height:220px; font-size:3rem; }
+  .country-list{ display:flex; flex-direction:column; gap:8px; }
+  .country-row{ display:flex; justify-content:space-between; padding:10px 14px; border-radius:8px; background: var(--paper-dim); font-size:0.85rem; }
+  .country-row b{font-weight:700;}
+  .country-row span{color:#7a715f; font-size:0.78rem;}
+
+  .project-card{ border:1px solid var(--line); background:#fff; border-radius: var(--radius); padding:20px; }
+  .project-card .progress-track{ height:6px; border-radius:999px; background: var(--paper-dim); margin-top:14px; overflow:hidden; }
+  .project-card .progress-fill{ height:100%; background: var(--violet); border-radius:999px; }
+
+  .guide-steps{ display:flex; flex-direction:column; gap:0; border-left:2px solid var(--line); margin-left:10px; }
+  .guide-step{ position:relative; padding:0 0 32px 26px; }
+  .guide-step::before{ content:''; position:absolute; left:-7px; top:2px; width:12px;height:12px; border-radius:50%; background: var(--violet); border: 3px solid var(--paper); }
+  .guide-step h3{ font-size:1rem; font-weight:600; margin-bottom:4px;}
+  .guide-step p{ font-size:0.85rem; color:#7a715f; margin:0; max-width:520px;}
+
+  .tools-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
+  .tool-card{ border-radius: var(--radius); padding:24px; color:#fff; }
+  .tool-card.voting{ background: linear-gradient(135deg,#6a3fb5,#42266f); }
+  .tool-card.streaming{ background: linear-gradient(135deg,#8a5e12,#5c3d08); }
+  .tool-card h3{ font-family:var(--font-display); font-size:1.2rem; margin-bottom:8px;}
+  .tool-card p{ font-size:0.85rem; opacity:0.85; margin-bottom:16px;}
+  .tool-card a.btn{ border-color:#fff; color:#fff; }
+
+  .support-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap:16px; }
+  .support-card{ border:1px solid var(--line); background:#fff; border-radius: var(--radius); padding:22px; }
+  .support-card .num{ font-family: var(--font-display); font-size:1.6rem; color: var(--violet); margin-bottom:8px; }
+  .support-card h3{ font-size:1rem; font-weight:600; margin-bottom:6px; }
+  .support-card p{ font-size:0.85rem; color:#7a715f; margin:0 0 14px 0; }
+
+  .dict-item{ border-bottom:1px solid var(--line); padding:14px 0; }
+  .dict-item:last-child{border-bottom:none;}
+  .dict-term{ font-weight:700; font-size:0.95rem; }
+  .dict-def{ font-size:0.85rem; color:#645d4d; margin-top:4px; }
+
+  footer{ padding: 40px; text-align:center; font-size:0.8rem; color:#8a8371; }
+  footer .yt{ display:inline-flex; align-items:center; gap:8px; margin-top:10px; font-weight:700; color: var(--violet-deep); text-decoration:none; background: var(--paper-dim); padding:8px 16px; border-radius:999px; }
+  footer .yt:hover{ background: var(--lilac); }
+
+  /* WELCOME MODAL */
+  .modal-scrim{ position:fixed; inset:0; background: rgba(28,23,48,0.55); backdrop-filter: blur(3px); display:flex; align-items:center; justify-content:center; z-index:500; padding:20px; }
+  .modal{ background: var(--paper); border-radius:18px; max-width:420px; width:100%; padding:32px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); text-align:left; }
+  .modal .modal-eyebrow{ font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color: var(--violet); font-weight:700; margin-bottom:8px; }
+  .modal h2{ font-size:1.5rem; margin-bottom:8px; }
+  .modal p.desc{ font-size:0.88rem; color:#7a715f; margin:0 0 22px 0; }
+  .modal label{ font-size:0.78rem; font-weight:700; display:block; margin-bottom:8px; }
+  .modal input[type="text"]{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); font-family: var(--font-body); font-size:0.95rem; margin-bottom:20px; outline:none; background:#fff; }
+  .modal input[type="text"]:focus{ border-color: var(--violet); }
+  .notif-row{ display:flex; align-items:center; justify-content:space-between; background: var(--paper-dim); padding:14px 16px; border-radius:12px; margin-bottom:24px; }
+  .notif-row .nlabel{ font-size:0.85rem; font-weight:600; }
+  .notif-row .nsub{ font-size:0.72rem; color:#7a715f; margin-top:2px;}
+  .switch{ position:relative; width:42px; height:24px; flex-shrink:0; }
+  .switch input{ opacity:0; width:0; height:0; }
+  .slider{ position:absolute; cursor:pointer; inset:0; background:#d8d0bd; border-radius:999px; transition:0.2s; }
+  .slider::before{ content:''; position:absolute; height:18px; width:18px; left:3px; top:3px; background:#fff; border-radius:50%; transition:0.2s; }
+  .switch input:checked + .slider{ background: var(--violet); }
+  .switch input:checked + .slider::before{ transform: translateX(18px); }
+  .modal-actions{ display:flex; gap:10px; }
+  .modal-actions .btn{ flex:1; text-align:center; }
+
+  /* PAGES */
+  .page{ display:none; }
+  .page.active{ display:block; }
+
+  @media (max-width: 900px){
+    .sidebar{ position:fixed; left:0; top:0; transform: translateX(-100%); transition: transform 0.22s ease; width: 78vw; max-width:280px; }
+    .sidebar.open{ transform: translateX(0); }
+    .sidebar-toggle{ display:block; }
+    .sidebar-scrim.open{ display:block; position:fixed; inset:0; background: rgba(0,0,0,0.4); z-index:45; }
+    .topbar{ padding:16px 20px 16px 64px; }
+    .hero{ padding:64px 20px 40px 20px; }
+    section.block{ padding:40px 20px; }
+    .search-box{ display:none; }
+  }
 </style>
 </head>
 <body>
 
-<div class="app">
-  <!-- ============ SIDEBAR ============ -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sb-brand">
-      <div class="mark">AH</div>
-      <div class="name"><b>ARMY</b>HEADQUARTERS</div>
+<!-- ================= WELCOME MODAL ================= -->
+<div class="modal-scrim" id="welcomeModal">
+  <div class="modal">
+    <div class="modal-eyebrow">Welcome, ARMY</div>
+    <h2>Let's set up your HQ</h2>
+    <p class="desc">Tell us what to call you and how you'd like to hear about updates.</p>
+
+    <label for="displayNameInput">Display name</label>
+    <input type="text" id="displayNameInput" placeholder="e.g. Borahae_Forever" maxlength="30" />
+
+    <div class="notif-row">
+      <div>
+        <div class="nlabel">Enable notifications</div>
+        <div class="nsub">Releases, events &amp; important alerts</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="notifToggle">
+        <span class="slider"></span>
+      </label>
     </div>
 
-    <div class="sb-group-label">Discover</div>
-    <a class="sb-link" data-page="home"><span class="ic">🏠</span> Home</a>
-    <a class="sb-link" data-page="songs"><span class="ic">🎵</span> Song Library</a>
-    <a class="sb-link" data-page="albums"><span class="ic">💿</span> Album Library</a>
-    <a class="sb-link" data-page="links"><span class="ic">🔗</span> Official Links</a>
-    <a class="sb-link" data-page="timeline"><span class="ic">📅</span> Release Timeline</a>
+    <div class="modal-actions">
+      <button class="btn primary" id="enterHqBtn" style="flex:2;">Enter ARMY HQ</button>
+    </div>
+  </div>
+</div>
 
-    <div class="sb-group-label">Streaming</div>
-    <a class="sb-link" data-page="milestones"><span class="ic">🎯</span> Milestones</a>
-    <a class="sb-link" data-page="missions"><span class="ic">📋</span> Daily Missions</a>
-    <a class="sb-link" data-page="events"><span class="ic">🚩</span> Event Tracker</a>
+<div class="app">
 
-    <div class="sb-group-label">Voting &amp; Charts</div>
-    <a class="sb-link" data-page="voting"><span class="ic">🗳️</span> Voting Hub</a>
-    <a class="sb-link" data-page="charts"><span class="ic">📈</span> Charts &amp; Shows</a>
+  <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+  <div class="sidebar-scrim" id="sidebarScrim"></div>
 
-    <div class="sb-group-label">Global ARMY</div>
-    <a class="sb-link" data-page="pulse"><span class="ic">🌎</span> Global Pulse</a>
-    <a class="sb-link" data-page="worldmap"><span class="ic">🗺️</span> World Map</a>
-    <a class="sb-link" data-page="timezone"><span class="ic">🕐</span> Time Zone Board</a>
-    <a class="sb-link" data-page="announcements"><span class="ic">📢</span> Announcements</a>
-    <a class="sb-link" data-page="fanchants"><span class="ic">📣</span> Fanchants</a>
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-brand" onclick="showPage('page-home')">
+      <div class="mark">💜 ARMY HQ</div>
+      <div class="sub">Global ARMY Network</div>
+    </button>
+    <nav id="sideNav">
+      <button class="nav-link" data-page="page-home" onclick="showPage('page-home')"><span class="nav-emoji">🏠</span>Home</button>
+      <button class="nav-link" data-page="page-new-army" onclick="showPage('page-new-army')"><span class="nav-emoji">🌱</span>I'm New Here</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore')"><span class="nav-emoji">🧭</span>Explore All Features</button>
 
-    <div class="sb-group-label">Data</div>
-    <a class="sb-link" data-page="members"><span class="ic">👥</span> Members</a>
-    <a class="sb-link" data-page="archive"><span class="ic">🗂️</span> Records &amp; Archive</a>
-    <a class="sb-link" data-page="guide"><span class="ic">🌱</span> ARMY Guide</a>
+      <div class="group-label">BTS</div>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','calendar')"><span class="nav-emoji">📅</span>Master Calendar</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','members')"><span class="nav-emoji">🧑‍🎤</span>Member Hubs</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','timeline')"><span class="nav-emoji">🗓️</span>Timeline</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','archive')"><span class="nav-emoji">🎬</span>Content Archive</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','discography')"><span class="nav-emoji">💿</span>Discography</button>
+
+      <div class="group-label">ARMY</div>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','global-map')"><span class="nav-emoji">🌎</span>Global ARMY Map</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','events')"><span class="nav-emoji">🎪</span>Events</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','projects')"><span class="nav-emoji">💜</span>Fan Projects</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','achievements')"><span class="nav-emoji">🏆</span>Achievements</button>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','dictionary')"><span class="nav-emoji">📖</span>ARMY Dictionary</button>
+
+      <div class="group-label">Tools</div>
+      <button class="nav-link" data-page="page-explore" onclick="showPage('page-explore','toolbox')"><span class="nav-emoji">🧰</span>Army Toolbox</button>
+      <a class="nav-link" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener"><span class="nav-emoji">🗳️</span>Voting HQ</a>
+      <a class="nav-link" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener"><span class="nav-emoji">🎧</span>Streaming HQ</a>
+    </nav>
+    <div class="sidebar-footer">
+      Created by <a href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">@bts_votings</a> on YouTube
+    </div>
   </aside>
 
-  <!-- ============ MAIN ============ -->
-  <div class="maincol">
+  <!-- ================= MAIN ================= -->
+  <main class="main">
+
     <div class="topbar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <button class="mobile-toggle" id="mobileToggle">☰</button>
-        <div class="page-title">
-          <span class="eyebrow" id="pageEyebrow">Discover</span>
-          <span id="pageTitle">Home</span>
-        </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" placeholder="Search BTS, members, songs, events, projects..." />
       </div>
-      <div class="topbar-right">
-        <div class="clock mono" id="localClock">--:--:--</div>
-        <button class="icon-btn" id="notifBtn" title="Notifications">🔔<span class="dot-badge" id="notifDot"></span></button>
-        <div class="profile-chip" id="profileChip"><span class="av" id="avInitial">?</span><span id="profileName">Guest</span></div>
-      </div>
-      <div class="notif-panel" id="notifPanel">
-        <div class="np-head">Notifications</div>
-        <div id="notifList"></div>
-      </div>
-      <div class="profile-panel" id="profilePanel">
-        <div class="pp-name" id="ppName">Guest</div>
-        <div class="pp-note">Stored on this device only · no account server</div>
-        <button class="btn small" style="width:100%;margin-bottom:8px;" id="editNameBtn">Edit display name</button>
-        <button class="btn small" style="width:100%;" id="forgetMeBtn">Forget this device</button>
+      <div class="top-actions">
+        <button class="btn" onclick="showPage('page-explore')">Catch Me Up</button>
+        <button class="btn primary" id="profileBtn">👤 Guest</button>
       </div>
     </div>
 
-    <div class="content">
+    <!-- ============================================================ -->
+    <!-- PAGE: HOME -->
+    <!-- ============================================================ -->
+    <div class="page active" id="page-home">
 
-      <!-- ============ HOME (overview only) ============ -->
-      <div class="page active" id="page-home">
-        <div class="home-hero">
-          <h1 class="home-hero-title">ARMY HEADQUARTERS</h1>
-          <div class="home-hero-rule"></div>
-          <div class="home-hero-row">
-            <div class="link-row">
-              <a class="btn pill primary" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">borastreams</a>
-              <a class="btn pill primary" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">BTS Voting Tracker</a>
-              <a class="btn pill primary" href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">BTS Votings on YouTube</a>
-            </div>
-            <button class="btn pill new-here-btn" data-goto="guide">🌱 I'm New Here</button>
+      <section class="hero">
+        <div class="hero-deco"></div>
+        <div class="hero-eyebrow">The Digital Headquarters</div>
+        <h1>Welcome to <em>ARMY HQ</em>,<br>the global home for BTS ARMY.</h1>
+        <p>News, calendar, archive, fan projects, and a worldwide ARMY map — plus dedicated tools for voting and streaming.</p>
+        <div class="hero-ctas">
+          <button class="btn primary" onclick="showPage('page-explore')">Explore HQ</button>
+          <button class="btn" onclick="showPage('page-new-army')">🌱 I'm New Here</button>
+        </div>
+      </section>
+
+      <section class="block" style="border-bottom:1px solid var(--line);">
+        <div class="map-wrap" style="grid-template-columns: 1fr 1fr; align-items:center;">
+          <div>
+            <span class="tag community" style="margin-bottom:12px;">For Baby ARMYs</span>
+            <h2 style="font-size:1.5rem; margin-bottom:10px;">New to the fandom?</h2>
+            <p style="color:#645d4d; font-size:0.9rem; max-width:420px;">Learn who BTS are, the fandom basics, and the real ways to support them — voting, streaming, and more.</p>
+            <button class="btn primary" onclick="showPage('page-new-army')" style="margin-top:16px;">Start the New ARMY Guide →</button>
+          </div>
+          <div class="map-visual" style="font-size:2.4rem;">🌱💜</div>
+        </div>
+      </section>
+
+      <section class="block" id="home-right-now">
+        <div class="block-head">
+          <div><span class="eyebrow">Live Status</span><h2>ARMY Right Now</h2></div>
+          <p class="desc">A quick snapshot of BTS and each member today.</p>
+        </div>
+        <div class="member-row">
+          <div class="member-card"><div class="name">BTS</div><div class="status"><span class="dot"></span>On break — group schedule TBA</div></div>
+          <div class="member-card"><div class="name">RM</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">Jin</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">SUGA</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">j-hope</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">Jimin</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">V</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card"><div class="name">Jung Kook</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+        </div>
+      </section>
+
+      <section class="block" id="home-news">
+        <div class="block-head">
+          <div><span class="eyebrow">News Center</span><h2>Latest Updates</h2></div>
+          <p class="desc">Official announcements, clearly separated from community reports.</p>
+        </div>
+        <div class="news-grid">
+          <div class="news-card">
+            <span class="tag official">Official</span>
+            <h3>Sample announcement headline</h3>
+            <p>Replace this placeholder with a real update pulled from Weverse or BIGHIT's official channels.</p>
+            <div class="meta">Source: Official · Just now</div>
+          </div>
+          <div class="news-card">
+            <span class="tag community">Community</span>
+            <h3>Sample fan-reported update</h3>
+            <p>Community-sourced info should always be labeled as such until officially confirmed.</p>
+            <div class="meta">Source: Community · 2h ago</div>
+          </div>
+          <div class="news-card">
+            <span class="tag official">Official</span>
+            <h3>Sample release note</h3>
+            <p>Album, single, or content release information goes here once confirmed.</p>
+            <div class="meta">Source: Official · 5h ago</div>
           </div>
         </div>
+      </section>
 
-        <div class="official-note">🔒 Fan-made hub. Links point to official BIGHIT MUSIC / HYBE / member-verified accounts, plus the two partner trackers linked below. <span class="badge official">Official</span> <span class="badge fan">Fan Project</span> <span class="badge community">Community</span></div>
-
-        <section>
-          <div class="section-head"><h2>Overview</h2><div class="rule"></div></div>
-          <div class="grid grid-3">
-            <div class="card">
-              <div class="meta">Today's Focus</div>
-              <h3>Stream "SWIM" — ARIRANG</h3>
-              <p>Loop it on official playlists — full streaming guide on borastreams.</p>
-              <a class="btn small" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open borastreams →</a>
-            </div>
-            <div class="card">
-              <div class="meta">Active Voting</div>
-              <h3>Check the Voting Hub</h3>
-              <p>Rounds and deadlines are tracked live on our partner site.</p>
-              <a class="btn small" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Vote now →</a>
-            </div>
-            <div class="card">
-              <div class="meta">Missions</div>
-              <h3 id="homeDoneToday">0/6 done today</h3>
-              <p>Check off today's ARMY missions and keep your streak alive.</p>
-              <a class="btn small" data-goto="missions">Open missions →</a>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <div class="section-head"><h2>Explore</h2><div class="rule"></div><span class="sub">click Discover in the sidebar for everything else</span></div>
-          <div class="grid grid-4">
-            <div class="card" style="cursor:pointer;" data-goto="pulse"><div class="meta">🌎 Global</div><h3>Global Pulse</h3><p>See what's happening across ARMY worldwide.</p></div>
-            <div class="card" style="cursor:pointer;" data-goto="fanchants"><div class="meta">📣 Fandom</div><h3>Fanchants</h3><p>Learn the call-and-response chants.</p></div>
-            <div class="card" style="cursor:pointer;" data-goto="timezone"><div class="meta">🕐 Tools</div><h3>Time Zone Board</h3><p>Convert KST drop times instantly.</p></div>
-            <div class="card" style="cursor:pointer;" data-goto="guide"><div class="meta">🌱 New here?</div><h3>ARMY Guide</h3><p>Glossary, FAQ, and how to get started.</p></div>
-          </div>
-        </section>
-
-        <section>
-          <div class="section-head"><h2>Partner Sites</h2><div class="rule"></div></div>
-          <div class="grid grid-2">
-            <div class="card">
-              <div class="meta">Streaming</div>
-              <h3>borastreams</h3>
-              <p>Full platform-by-platform streaming guides and live timer.</p>
-              <a class="btn primary small" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open borastreams →</a>
-            </div>
-            <div class="card">
-              <div class="meta">Voting</div>
-              <h3>BTS Votings Hub</h3>
-              <p>Every active vote, deadline, and award calendar in one place.</p>
-              <a class="btn primary small" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Votings Hub →</a>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <!-- ============ SONG LIBRARY ============ -->
-      <div class="page" id="page-songs">
-        <div class="section-head"><h2>Song Library</h2><div class="rule"></div></div>
-        <div class="card">
-          <table>
-            <tr><th>Track</th><th>Album</th><th>Type</th></tr>
-            <tr><td>Swim</td><td>ARIRANG</td><td>Title</td></tr>
-            <tr><td>Body to Body</td><td>ARIRANG</td><td>Opening track</td></tr>
-            <tr><td>2.0</td><td>ARIRANG</td><td>Track</td></tr>
-            <tr><td>Dynamite</td><td>BE (single)</td><td>Title</td></tr>
-            <tr><td>Life Goes On</td><td>BE</td><td>Title</td></tr>
-            <tr><td>Butter</td><td>Butter (single)</td><td>Title</td></tr>
-            <tr><td>Permission to Dance</td><td>Butter (single)</td><td>Title</td></tr>
-            <tr><td>Yet to Come</td><td>Proof</td><td>Title</td></tr>
-            <tr><td>Run BTS</td><td>Proof</td><td>B-side</td></tr>
-          </table>
-          <p style="margin-top:12px;font-size:12px;color:var(--ink-soft);">Reference list of previously released title tracks — update as new comebacks are announced.</p>
+      <section class="block" id="home-countdown">
+        <div class="block-head">
+          <div><span class="eyebrow">Countdown Center</span><h2>What's Coming Next</h2></div>
         </div>
-      </div>
-
-      <!-- ============ ALBUM LIBRARY ============ -->
-      <div class="page" id="page-albums">
-        <div class="section-head"><h2>Album Library</h2><div class="rule"></div></div>
-        <div class="grid grid-3">
-          <div class="card"><h3>ARIRANG</h3><p>2026 · 5th full album · Big Hit Music · Lead single "SWIM."</p></div>
-          <div class="card"><h3>Proof</h3><p>2022 · Anthology compilation.</p></div>
-          <div class="card"><h3>BE</h3><p>2020 · "Comfort era" full album.</p></div>
-          <div class="card"><h3>Map of the Soul: 7</h3><p>2020 · Full album.</p></div>
-          <div class="card"><h3>Map of the Soul: Persona</h3><p>2019 · EP.</p></div>
-          <div class="card"><h3>Love Yourself: Answer</h3><p>2018 · Repackage.</p></div>
-          <div class="card"><h3>Love Yourself: Tear</h3><p>2018 · Full album.</p></div>
+        <div class="countdown-grid">
+          <div class="countdown-card"><div class="label">Next Anniversary</div><div class="timer">-- D -- H -- M</div></div>
+          <div class="countdown-card"><div class="label">Next Release</div><div class="timer">TBA</div></div>
+          <div class="countdown-card"><div class="label">Next Event</div><div class="timer">TBA</div></div>
         </div>
-      </div>
+      </section>
 
-      <!-- ============ OFFICIAL LINKS ============ -->
-      <div class="page" id="page-links">
-        <div class="section-head"><h2>Official Links</h2><div class="rule"></div></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Pre-Order &amp; Purchase</div>
-            <p>Support physical + digital album sales through official retailers.</p>
-            <div class="link-row">
-              <a class="btn primary" href="https://weverse.io/" target="_blank" rel="noopener">Weverse Shop</a>
-              <a class="btn" href="https://ktown4u.com/" target="_blank" rel="noopener">Ktown4u</a>
-              <a class="btn" href="https://www.musicplant.co.kr/" target="_blank" rel="noopener">Music Korea</a>
-              <a class="btn" href="https://itunes.apple.com/" target="_blank" rel="noopener">iTunes / Apple Music</a>
-            </div>
+      <section class="block" id="home-tools">
+        <div class="block-head">
+          <div><span class="eyebrow">Your Ecosystem</span><h2>Voting &amp; Streaming HQ</h2></div>
+          <p class="desc">ARMY HQ is the hub — voting and streaming live on their own dedicated sites.</p>
+        </div>
+        <div class="tools-grid">
+          <div class="tool-card voting">
+            <h3>🗳️ Voting HQ</h3>
+            <p>Track and cast your votes for BTS across every platform.</p>
+            <a class="btn" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ</a>
           </div>
-          <div class="card">
-            <div class="meta">Official Channels</div>
-            <p>Watch, stream, and share only from verified accounts.</p>
-            <div class="link-row">
-              <a class="btn primary" href="https://www.youtube.com/@BANGTANTV" target="_blank" rel="noopener">BANGTANTV</a>
-              <a class="btn" href="https://weverse.io/bts" target="_blank" rel="noopener">Weverse</a>
-              <a class="btn" href="https://x.com/bts_bighit" target="_blank" rel="noopener">X / Twitter</a>
-              <a class="btn" href="https://open.spotify.com/artist/3Nrfpe0tUJi4K4DXYWgMUX" target="_blank" rel="noopener">Spotify</a>
-            </div>
+          <div class="tool-card streaming">
+            <h3>🎧 Streaming HQ</h3>
+            <p>Streaming guides and party links for every release.</p>
+            <a class="btn" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ</a>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- ============ RELEASE TIMELINE ============ -->
-      <div class="page" id="page-timeline">
-        <div class="section-head"><h2>Release Timeline</h2><div class="rule"></div></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Comeback Timeline <span class="badge official">Official</span></div>
-            <ul class="timeline">
-              <li class="done"><div class="t-date">Jan 1, 2026</div><div class="t-title">Comeback confirmed</div><div class="t-desc">Handwritten New Year's letters to fans revealed the March 20 date.</div></li>
-              <li class="done"><div class="t-date">Jan 15, 2026</div><div class="t-title">Album title revealed</div><div class="t-desc">"ARIRANG," named after the traditional Korean folk song.</div></li>
-              <li class="done"><div class="t-date">Mar 3, 2026</div><div class="t-title">Tracklist revealed</div><div class="t-desc">Full 14-track listing shared by BIGHIT MUSIC.</div></li>
-              <li class="done"><div class="t-date">Mar 20, 2026</div><div class="t-title">ARIRANG released</div><div class="t-desc">Out worldwide, lead single "SWIM."</div></li>
-              <li class="done"><div class="t-date">Mar 21, 2026</div><div class="t-title">Comeback Live: ARIRANG</div><div class="t-desc">Comeback concert at Gwanghwamun Square, streamed on Netflix.</div></li>
-              <li><div class="t-date">Apr 9, 2026 →</div><div class="t-title">ARIRANG World Tour</div><div class="t-desc">Starts in Goyang · 34 regions, 82+ shows through 2027.</div></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="meta">Album Info <span class="badge official">Official</span></div>
-            <h3>ARIRANG</h3>
-            <p>5th full-length / 10th overall studio album · Released March 20, 2026 · Big Hit Music · 14 tracks · Lead single "SWIM." First full-group album since Proof (2022).</p>
-            <ol style="padding-left:18px;font-size:14px;color:var(--ink);line-height:1.9;">
-              <li>Body to Body</li><li>Hooligan</li><li>Aliens</li><li>FYA</li><li>2.0</li>
-              <li>No. 26</li><li>Swim <span class="track-tag" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);border:1px solid var(--line);padding:2px 7px;border-radius:20px;">Title</span></li>
-              <li>They Don't Know That I'm...</li><li>One More Night</li><li>2:5</li><li>No. 20</li><li>Please</li><li>SUWM</li><li>Into the Sun</li>
-            </ol>
-          </div>
+      <section class="block" style="border-bottom:none;">
+        <div class="block-head">
+          <div><span class="eyebrow">There's More</span><h2>Explore Every Feature</h2></div>
+          <p class="desc">Calendar, member hubs, timeline, content archive, global map, fan projects, toolbox, and more.</p>
         </div>
-      </div>
+        <button class="btn primary" onclick="showPage('page-explore')">Go to Explore HQ →</button>
+      </section>
 
-      <!-- ============ MILESTONES ============ -->
-      <div class="page" id="page-milestones">
-        <div class="section-head"><h2>Milestones Watch — ARIRANG</h2><div class="rule"></div></div>
-        <div class="card">
-          <div class="meta">Official milestones <span class="badge official">Official</span></div>
-          <ul class="timeline">
-            <li class="done"><div class="t-title">ARIRANG released</div><div class="t-desc">March 20, 2026 · 14 tracks · lead single "SWIM."</div></li>
-            <li class="done"><div class="t-title">Comeback Live: ARIRANG</div><div class="t-desc">Gwanghwamun Square concert, streamed on Netflix — March 21, 2026.</div></li>
-            <li><div class="t-title">"SWIM" MV milestone views</div><div class="t-desc">Update once officially confirmed by BANGTANTV.</div></li>
-            <li><div class="t-title">Chart certifications</div><div class="t-desc">Tracked via Circle Chart / RIAK as confirmed.</div></li>
-            <li><div class="t-title">ARIRANG World Tour</div><div class="t-desc">Started April 9, 2026 in Goyang · 34 regions, 82+ shows through 2027.</div></li>
-          </ul>
-        </div>
-        <div class="card" style="margin-top:16px;">
-          <div class="meta">Your personal streaming checklist</div>
-          <p style="font-size:12px;color:var(--ink-soft);">Self-tracked only — check off what you've personally done. Not verified, shared, or proof-gated.</p>
-          <ul class="checklist">
-            <li><input type="checkbox" id="m1"><label for="m1">Streamed "SWIM" today</label></li>
-            <li><input type="checkbox" id="m2"><label for="m2">Watched the "SWIM" MV in HD</label></li>
-            <li><input type="checkbox" id="m3"><label for="m3">Added ARIRANG to my playlists</label></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- ============ DAILY MISSIONS ============ -->
-      <div class="page" id="page-missions">
-        <div class="section-head"><h2>Daily ARMY Missions</h2><div class="rule"></div></div>
-        <div class="card">
-          <div class="streak-row">
-            <div class="streak-box"><div class="streak-num mono" id="streakNum">0</div><div class="streak-lab">Day streak</div></div>
-            <div class="streak-box"><div class="streak-num mono" id="doneToday">0/6</div><div class="streak-lab">Done today</div></div>
-            <div class="streak-box"><div class="streak-num mono" id="xpNum">0</div><div class="streak-lab">Total XP</div></div>
-          </div>
-          <p style="font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Check off what you personally did — this is a self-tracked personal checklist, not verified or shared with anyone else.</p>
-          <ul class="checklist" id="checklistItems">
-            <li><input type="checkbox" id="c1" data-xp="10"><label for="c1">Stream the title track on Spotify &amp; Apple Music<span class="sub">Official playlists, full play-through · +10 XP</span></label></li>
-            <li><input type="checkbox" id="c2" data-xp="10"><label for="c2">Watch the MV on YouTube in HD<span class="sub">No skipping, no muting · +10 XP</span></label></li>
-            <li><input type="checkbox" id="c3" data-xp="15"><label for="c3">Vote on today's active round<span class="sub">Check the Votings Hub for what's open · +15 XP</span></label></li>
-            <li><input type="checkbox" id="c4" data-xp="5"><label for="c4">Check today's teaser drop<span class="sub">Weverse / X at scheduled time · +5 XP</span></label></li>
-            <li><input type="checkbox" id="c5" data-xp="5"><label for="c5">Trend the hashtag on X<span class="sub">Use the official comeback hashtag only · +5 XP</span></label></li>
-            <li><input type="checkbox" id="c6" data-xp="5"><label for="c6">Consider a pre-order if you haven't yet<span class="sub">See official retailer links · +5 XP</span></label></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- ============ EVENT TRACKER ============ -->
-      <div class="page" id="page-events">
-        <div class="section-head"><h2>Event Tracker</h2><div class="rule"></div></div>
-        <div class="card">
-          <table>
-            <tr><th>Event</th><th>Type</th><th>Status</th></tr>
-            <tr><td>Comeback streaming party</td><td>Streaming</td><td>Upcoming</td></tr>
-            <tr><td>Cup-sleeve event (local cafes)</td><td>Fan project</td><td>Ongoing</td></tr>
-            <tr><td>Member birthday project</td><td>Fan project</td><td>Planning</td></tr>
-            <tr><td>Charity fundraiser</td><td>Charity</td><td>Ongoing</td></tr>
-          </table>
-          <p style="margin-top:10px;font-size:12px;color:var(--ink-soft);">Add local and global fan-run events here as they're confirmed.</p>
-        </div>
-      </div>
-
-      <!-- ============ VOTING HUB ============ -->
-      <div class="page" id="page-voting">
-        <div class="section-head"><h2>Voting &amp; Awards</h2><div class="rule"></div><span class="sub">all active votes tracked on BTS Votings Hub →</span></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">How Voting Works</div>
-            <p><strong>Hearts / stars / tickets:</strong> most apps give free daily votes that reset at a fixed time; some allow bonus votes via missions.</p>
-            <p><strong>Account-based voting:</strong> most official apps require sign-in so votes are counted fairly.</p>
-            <p><strong>Daily vs one-time:</strong> some shows allow one vote per round; others allow daily voting until the period ends.</p>
-          </div>
-          <div class="card">
-            <div class="meta">Tracker</div>
-            <h3>BTS Votings Hub</h3>
-            <p>Live countdowns for every active round and the full award calendar.</p>
-            <a class="btn primary" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Vote now →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ CHARTS ============ -->
-      <div class="page" id="page-charts">
-        <div class="section-head"><h2>Charts &amp; Music Shows</h2><div class="rule"></div></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Music Show Schedule (KST)</div>
-            <table>
-              <tr><th>Day</th><th>Show</th><th>Time</th></tr>
-              <tr><td>Thu</td><td>M Countdown</td><td>6:00 PM</td></tr>
-              <tr><td>Fri</td><td>Music Bank</td><td>5:00 PM</td></tr>
-              <tr><td>Sat</td><td>Music Core</td><td>3:15 PM</td></tr>
-              <tr><td>Sun</td><td>Inkigayo</td><td>3:30 PM</td></tr>
-            </table>
-          </div>
-          <div class="card">
-            <div class="meta">Chart Sources</div>
-            <p>For live chart positions, check the official chart sites directly rather than relying on secondhand numbers:</p>
-            <div class="link-row">
-              <a class="btn small" href="https://www.billboard.com/charts/hot-100/" target="_blank" rel="noopener">Billboard Hot 100</a>
-              <a class="btn small" href="https://www.officialcharts.com/charts/singles-chart/" target="_blank" rel="noopener">UK Official Charts</a>
-              <a class="btn small" href="https://circlechart.kr/" target="_blank" rel="noopener">Circle Chart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ GLOBAL PULSE ============ -->
-      <div class="page" id="page-pulse">
-        <div class="section-head"><h2>Global ARMY Pulse</h2><div class="rule"></div><span class="demo-flag">Demo layout — placeholder data</span></div>
-        <div class="pulse-hero">
-          <h3>Global ARMY Pulse</h3>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#f0d48a;">This panel is a template for a live global dashboard.</div>
-          <p style="color:#e9dde9;font-size:13.5px;max-width:520px;margin:10px 0 0;">Wire it up to a real data source (e.g. aggregated, opt-in check-ins from country pages) to show genuine activity instead of these placeholders.</p>
-          <div class="pulse-trend">
-            <span class="pulse-tag">#BTS</span><span class="pulse-tag">#BTS_COMEBACK</span><span class="pulse-tag">#ARMY</span><span class="pulse-tag">#JIMIN</span>
-          </div>
-        </div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Happening Now <span class="demo-flag">placeholder</span></div>
-            <ul class="timeline">
-              <li><div class="t-title">🇮🇳 India — Streaming Party</div><div class="t-desc">Example entry — replace with real event feed.</div></li>
-              <li><div class="t-title">🇯🇵 Japan — Birthday Project</div><div class="t-desc">Example entry.</div></li>
-              <li><div class="t-title">🇧🇷 Brazil — Cup Sleeve Event</div><div class="t-desc">Example entry.</div></li>
-            </ul>
-          </div>
-          <div class="card">
-            <div class="meta">Global Project <span class="demo-flag">placeholder</span></div>
-            <h3>BTS Anniversary Project</h3>
-            <div class="bar" style="height:9px;border-radius:6px;background:var(--paper-warm);border:1px solid var(--line);overflow:hidden;"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--plum),var(--clay));" id="pulseBar"></div></div>
-            <p style="margin-top:10px;">Progress bar is unset until connected to a real participation source.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ WORLD MAP / COUNTRY HQ ============ -->
-      <div class="page" id="page-worldmap">
-        <div class="section-head"><h2>World Map — Country Headquarters</h2><div class="rule"></div></div>
-        <p style="color:var(--ink-soft);font-size:13.5px;">Click a country to see its local projects, streaming teams, and event links. Content below is a starter template — fill in each country's real fanbase links and projects.</p>
-        <div class="country-grid" id="countryGrid"></div>
-        <div class="card" id="countryDetail" style="margin-top:18px;display:none;"></div>
-      </div>
-
-      <!-- ============ TIME ZONE BOARD ============ -->
-      <div class="page" id="page-timezone">
-        <div class="section-head"><h2>Global Time-Zone Board</h2><div class="rule"></div></div>
-        <div class="card">
-          <div class="tz-input-row">
-            <label for="kstInput">KST release time:</label>
-            <input type="time" id="kstInput" value="00:00">
-            <span style="font-size:12px;color:var(--ink-soft);">converts instantly below</span>
-          </div>
-          <div class="tz-grid" id="tzGrid"></div>
-        </div>
-      </div>
-
-      <!-- ============ ANNOUNCEMENTS ============ -->
-      <div class="page" id="page-announcements">
-        <div class="section-head"><h2>Global Announcement Board</h2><div class="rule"></div></div>
-        <div class="card">
-          <div class="meta">Pinned</div>
-          <h3>Welcome to ARMY HEADQUARTERS</h3>
-          <p>Post official announcements here as they're confirmed by BIGHIT MUSIC / HYBE, or important community-wide notices. Keep entries dated and sourced.</p>
-        </div>
-      </div>
-
-      <!-- ============ FANCHANTS ============ -->
-      <div class="page" id="page-fanchants">
-        <div class="section-head"><h2>Fanchants</h2><div class="rule"></div></div>
-        <p style="color:var(--ink-soft);font-size:13.5px;">Fanchants are the call-and-response member-name chants ARMY does live during songs. Basic pattern below — exact timing varies per song, so listen to a fanchant guide video for the specific track before a concert or event.</p>
-        <div class="chant-card">
-          <h3>The basic full chant (7 members)</h3>
-          <div class="chant-lines">RM! Jin! Suga! J-Hope! Jimin! V! Jungkook! BTS!</div>
-        </div>
-        <div class="chant-card">
-          <h3>Common intro chant</h3>
-          <div class="chant-lines">방탄소년단! (Bangtan Sonyeondan!)</div>
-          <p style="margin-top:8px;font-size:12.5px;">Used at the start of many songs and stage intros.</p>
-        </div>
-        <div class="chant-card">
-          <h3>Tips for chanting live</h3>
-          <p>Listen for the beat cue before each member's name — fanchants are timed to specific instrumental gaps. Many fan channels post song-specific fanchant guide videos ahead of comebacks; check the official fanbase accounts for your country before an event.</p>
-        </div>
-      </div>
-
-      <!-- ============ MEMBERS ============ -->
-      <div class="page" id="page-members">
-        <div class="section-head"><h2>The Members</h2><div class="rule"></div></div>
-        <div class="member-grid">
-          <div class="member-card"><div class="m-name">RM</div><div class="m-note">Leader</div></div>
-          <div class="member-card"><div class="m-name">Jin</div><div class="m-note">Vocalist</div></div>
-          <div class="member-card"><div class="m-name">Suga</div><div class="m-note">Rapper</div></div>
-          <div class="member-card"><div class="m-name">J-Hope</div><div class="m-note">Rapper/Dancer</div></div>
-          <div class="member-card"><div class="m-name">Jimin</div><div class="m-note">Vocalist</div></div>
-          <div class="member-card"><div class="m-name">V</div><div class="m-note">Vocalist</div></div>
-          <div class="member-card"><div class="m-name">Jungkook</div><div class="m-note">Vocalist</div></div>
-        </div>
-      </div>
-
-      <!-- ============ ARCHIVE ============ -->
-      <div class="page" id="page-archive">
-        <div class="section-head"><h2>Records &amp; Comeback Archive</h2><div class="rule"></div></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Verified Records</div>
-            <p>Only list records confirmed by an official label statement or verified chart source, with a link.</p>
-          </div>
-          <div class="card">
-            <div class="meta">Previous Eras</div>
-            <div class="era-card"><span>Proof</span><span class="mono" style="font-size:11.5px;color:var(--ink-soft);">2022 · Anthology</span></div>
-            <div class="era-card"><span>BE</span><span class="mono" style="font-size:11.5px;color:var(--ink-soft);">2020 · Comfort era</span></div>
-            <div class="era-card"><span>Map of the Soul: 7</span><span class="mono" style="font-size:11.5px;color:var(--ink-soft);">2020</span></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ ARMY GUIDE ============ -->
-      <div class="page" id="page-guide">
-        <div class="section-head"><h2>ARMY Guide — Comeback 101</h2><div class="rule"></div></div>
-        <div class="grid grid-2">
-          <div class="card">
-            <div class="meta">Glossary</div>
-            <div class="glossary-grid">
-              <div class="glossary-item"><div class="glossary-term">CB</div><div class="glossary-def">Comeback — a new release with promotions.</div></div>
-              <div class="glossary-item"><div class="glossary-term">MV</div><div class="glossary-def">Music video for the title track.</div></div>
-              <div class="glossary-item"><div class="glossary-term">KST</div><div class="glossary-def">Korea Standard Time — most official drops use this.</div></div>
-              <div class="glossary-item"><div class="glossary-term">Tracking week</div><div class="glossary-def">First 7 days used for chart eligibility.</div></div>
-              <div class="glossary-item"><div class="glossary-term">Title track</div><div class="glossary-def">The main promoted single from an album.</div></div>
-              <div class="glossary-item"><div class="glossary-term">B-side</div><div class="glossary-def">Other album tracks not used as the title.</div></div>
-              <div class="glossary-item"><div class="glossary-term">Repackage</div><div class="glossary-def">A re-released album with bonus tracks.</div></div>
-              <div class="glossary-item"><div class="glossary-term">Bias</div><div class="glossary-def">The member a fan feels most drawn to.</div></div>
-            </div>
-          </div>
-          <div class="card faq">
-            <div class="meta">FAQ</div>
-            <details><summary>Is this an official BTS or HYBE site?</summary><p>No. ARMY HEADQUARTERS is an unofficial fan-made dashboard. It only links out to official sources.</p></details>
-            <details><summary>How do I support BTS legitimately as a beginner?</summary><p>Stream on official platforms, buy from official retailers, vote through official apps, and follow verified accounts — everything you need is linked here.</p></details>
-            <details><summary>Is my display name an account?</summary><p>No — it's stored only in your browser's local storage on this device. There's no server, login, or password.</p></details>
-          </div>
-        </div>
-      </div>
-
+      <footer>
+        <div>💜 ARMY HQ — built by and for ARMY, worldwide.</div>
+        <a class="yt" href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">▶ Created by @bts_votings on YouTube</a>
+      </footer>
     </div>
 
-    <footer>
-      <div class="link-row" style="justify-content:center;margin-bottom:16px;">
-        <a class="btn" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">borastreams — Streaming Hub</a>
-        <a class="btn" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">BTS Votings Hub — Voting Tracker</a>
-        <a class="btn" href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">@bts_votings on YouTube</a>
-      </div>
-      <p class="footer-sub">Fan-made ARMY dashboard · Not affiliated with HYBE / BIGHIT MUSIC · All trademarks belong to their owners</p>
-    </footer>
-  </div>
+    <!-- ============================================================ -->
+    <!-- PAGE: I'M NEW HERE -->
+    <!-- ============================================================ -->
+    <div class="page" id="page-new-army">
+
+      <section class="hero" style="padding-bottom:36px;">
+        <div class="hero-eyebrow">Baby ARMY Starter Pack</div>
+        <h1 style="font-size:clamp(2rem,4.5vw,3.4rem);">Welcome to the fandom. <em>Here's where to start.</em></h1>
+        <p>Everything a new ARMY needs — who BTS are, fandom basics, and the real ways to support them.</p>
+      </section>
+
+      <section class="block" id="who">
+        <div class="block-head"><div><span class="eyebrow">Meet the Group</span><h2>Who is BTS?</h2></div></div>
+        <p style="max-width:640px; color:#54503f; font-size:0.95rem; margin-bottom:24px;">
+          BTS (방탄소년단) is a seven-member group from Seoul, South Korea, formed by BIGHIT (now HYBE) and debuted in 2013.
+          They write and produce much of their own music, and their fandom is called ARMY.
+        </p>
+        <div class="member-row">
+          <div class="member-card"><div class="name">RM</div><div class="status">Leader, main rapper</div></div>
+          <div class="member-card"><div class="name">Jin</div><div class="status">Vocalist, eldest member</div></div>
+          <div class="member-card"><div class="name">SUGA</div><div class="status">Rapper, producer</div></div>
+          <div class="member-card"><div class="name">j-hope</div><div class="status">Rapper, dancer</div></div>
+          <div class="member-card"><div class="name">Jimin</div><div class="status">Vocalist, dancer</div></div>
+          <div class="member-card"><div class="name">V</div><div class="status">Vocalist</div></div>
+          <div class="member-card"><div class="name">Jung Kook</div><div class="status">Vocalist, maknae (youngest)</div></div>
+        </div>
+      </section>
+
+      <section class="block" id="basics">
+        <div class="block-head">
+          <div><span class="eyebrow">Learn the Lingo</span><h2>Fandom Basics</h2></div>
+          <p class="desc">A few essential terms to know before you dive in.</p>
+        </div>
+        <div class="calendar-list" style="padding:8px 20px;">
+          <div class="dict-item"><div class="dict-term">ARMY</div><div class="dict-def">The official fandom name — stands for "Adorable Representative M.C. for Youth," and it's also a play on how the group and fans go together.</div></div>
+          <div class="dict-item"><div class="dict-term">Borahae (보라해)</div><div class="dict-def">"I purple you" — coined by V, meaning trust and love that lasts.</div></div>
+          <div class="dict-item"><div class="dict-term">OT7</div><div class="dict-def">Supporting all seven members equally, not just a favorite.</div></div>
+          <div class="dict-item"><div class="dict-term">Bias</div><div class="dict-def">Your favorite member. No pressure to pick one right away!</div></div>
+          <div class="dict-item"><div class="dict-term">Weverse</div><div class="dict-def">The official platform where BTS post updates and communicate with ARMY directly.</div></div>
+        </div>
+        <button class="btn" onclick="showPage('page-explore','dictionary')" style="margin-top:20px;">See the full dictionary →</button>
+      </section>
+
+      <section class="block" id="how-to-support">
+        <div class="block-head">
+          <div><span class="eyebrow">Get Involved</span><h2>How to Support BTS</h2></div>
+          <p class="desc">The real, effective ways ARMY shows up for BTS — no gatekeeping, start wherever you can.</p>
+        </div>
+        <div class="support-grid">
+          <div class="support-card">
+            <div class="num">01</div>
+            <h3>🗳️ Vote</h3>
+            <p>Voting on award show and chart platforms genuinely helps BTS's recognition. Use Voting HQ to track ongoing votes and how to cast them.</p>
+            <a class="btn primary" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ</a>
+          </div>
+          <div class="support-card">
+            <div class="num">02</div>
+            <h3>🎧 Stream</h3>
+            <p>Streaming on official platforms (Spotify, Apple Music, YouTube) is one of the most impactful things ARMY does. Use Streaming HQ for guides and party links.</p>
+            <a class="btn primary" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ</a>
+          </div>
+          <div class="support-card">
+            <div class="num">03</div>
+            <h3>💰 Buy Official</h3>
+            <p>Buying albums and merch through official stores (Weverse Shop, HYBE Insight) directly supports the group and counts toward chart sales.</p>
+          </div>
+          <div class="support-card">
+            <div class="num">04</div>
+            <h3>📢 Engage Respectfully</h3>
+            <p>Follow official accounts, engage on Weverse, and share content from verified sources — always credit and avoid spreading unverified rumors.</p>
+          </div>
+          <div class="support-card">
+            <div class="num">05</div>
+            <h3>🎪 Join Fan Projects</h3>
+            <p>Cupsleeve events, birthday projects, and charity drives are a fun, low-pressure way to connect with local ARMY.</p>
+            <button class="btn" onclick="showPage('page-explore','projects')">Browse Fan Projects</button>
+          </div>
+          <div class="support-card">
+            <div class="num">06</div>
+            <h3>🚫 Avoid</h3>
+            <p>Don't buy from unofficial resellers, don't participate in mass-reporting wars, and don't share private/leaked content — it can hurt BTS more than help.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="listening" style="border-bottom:none;">
+        <div class="block-head">
+          <div><span class="eyebrow">Dive In</span><h2>Where to Start Listening</h2></div>
+          <p class="desc">A gentle path through the discography — no need to listen in order, but this helps.</p>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step"><h3>1. Start with a hits playlist</h3><p>Get a feel for their range before going album by album.</p></div>
+          <div class="guide-step"><h3>2. LOVE YOURSELF series</h3><p>One of the most beloved and accessible eras to start with.</p></div>
+          <div class="guide-step"><h3>3. Explore solo work</h3><p>Each member has released solo music worth hearing individually.</p></div>
+          <div class="guide-step"><h3>4. Go back to the early years</h3><p>Once you're hooked, the early discography adds great context.</p></div>
+        </div>
+        <button class="btn primary" onclick="showPage('page-explore','discography')" style="margin-top:12px;">Browse full discography →</button>
+      </section>
+
+      <footer>
+        <div>💜 ARMY HQ — built by and for ARMY, worldwide.</div>
+        <a class="yt" href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">▶ Created by @bts_votings on YouTube</a>
+      </footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PAGE: EXPLORE -->
+    <!-- ============================================================ -->
+    <div class="page" id="page-explore">
+
+      <section class="hero" style="padding-top:48px; padding-bottom:36px;">
+        <div class="hero-eyebrow">The Full HQ</div>
+        <h1 style="font-size:clamp(2rem,4vw,3rem);">Explore every feature.</h1>
+        <p>Calendar, member hubs, archive, world map, fan projects, and tools — everything ARMY HQ has to offer.</p>
+      </section>
+
+      <section class="block" id="calendar">
+        <div class="block-head">
+          <div><span class="eyebrow">Plan Ahead</span><h2>BTS Master Calendar</h2></div>
+          <p class="desc">Every release, show, and milestone in one place.</p>
+        </div>
+        <div class="calendar-list">
+          <div class="cal-row"><span class="cal-date">TBA</span><span>Group activity announcement</span><span class="cal-type">Event</span></div>
+          <div class="cal-row"><span class="cal-date">13 Jun</span><span>BTS Debut Anniversary</span><span class="cal-type">Anniversary</span></div>
+          <div class="cal-row"><span class="cal-date">TBA</span><span>Next comeback window</span><span class="cal-type">Music</span></div>
+          <div class="cal-row"><span class="cal-date">TBA</span><span>FESTA planning window</span><span class="cal-type">Event</span></div>
+        </div>
+      </section>
+
+      <section class="block" id="members">
+        <div class="block-head">
+          <div><span class="eyebrow">Individual Hubs</span><h2>Member Pages</h2></div>
+          <p class="desc">Profile, discography, appearances, and timeline for each member.</p>
+        </div>
+        <div class="explore-grid">
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>RM</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>Jin</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>SUGA</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>j-hope</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>Jimin</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>V</h3><p>Profile · Solo work · Updates</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎤</span><h3>Jung Kook</h3><p>Profile · Solo work · Updates</p></a>
+        </div>
+      </section>
+
+      <section class="block" id="timeline">
+        <div class="block-head">
+          <div><span class="eyebrow">History</span><h2>BTS Timeline</h2></div>
+          <p class="desc">From debut to present, click any era to explore.</p>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step"><h3>2013 — Debut</h3><p>2 Cool 4 Skool and the beginning of the BTS story.</p></div>
+          <div class="guide-step"><h3>2016 — WINGS Era</h3><p>A turning point in sound and global recognition.</p></div>
+          <div class="guide-step"><h3>2018 — LOVE YOURSELF Era</h3><p>UN speech, global charts, worldwide breakthrough.</p></div>
+          <div class="guide-step"><h3>2020 — MAP OF THE SOUL: 7</h3><p>Record-breaking releases and global milestones.</p></div>
+          <div class="guide-step"><h3>Present</h3><p>Solo eras, military service milestones, and what's next.</p></div>
+        </div>
+      </section>
+
+      <section class="block" id="archive">
+        <div class="block-head">
+          <div><span class="eyebrow">Watch &amp; Discover</span><h2>Content Archive</h2></div>
+          <p class="desc">RUN BTS, Bon Voyage, In the SOOP, and more — searchable by member and year.</p>
+        </div>
+        <div class="explore-grid">
+          <a class="explore-card" href="#"><span class="icon">🎬</span><h3>RUN BTS</h3><p>Variety episodes archive</p></a>
+          <a class="explore-card" href="#"><span class="icon">✈️</span><h3>Bon Voyage</h3><p>Travel series archive</p></a>
+          <a class="explore-card" href="#"><span class="icon">🏡</span><h3>In the SOOP</h3><p>Healing series archive</p></a>
+          <a class="explore-card" href="#"><span class="icon">💥</span><h3>BTS Bomb</h3><p>Behind-the-scenes clips</p></a>
+        </div>
+      </section>
+
+      <section class="block" id="discography">
+        <div class="block-head">
+          <div><span class="eyebrow">Music Archive</span><h2>Discography</h2></div>
+          <p class="desc">Albums, tracklists, credits, and related content — not a streaming player.</p>
+        </div>
+        <div class="explore-grid">
+          <a class="explore-card" href="#"><span class="icon">💿</span><h3>Studio Albums</h3><p>Full album archive with tracklists</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎵</span><h3>Singles</h3><p>All singles and OSTs</p></a>
+          <a class="explore-card" href="#"><span class="icon">🌐</span><h3>Japanese Releases</h3><p>Japan-market albums &amp; singles</p></a>
+          <a class="explore-card" href="#"><span class="icon">🎥</span><h3>Music Videos</h3><p>Official MV archive</p></a>
+        </div>
+      </section>
+
+      <section class="block" id="global-map">
+        <div class="block-head">
+          <div><span class="eyebrow">Worldwide</span><h2>Global ARMY Network</h2></div>
+          <p class="desc">Find fanbases, projects, and events by country.</p>
+        </div>
+        <div class="map-wrap">
+          <div class="map-visual">🗺️</div>
+          <div class="country-list">
+            <div class="country-row"><b>🇰🇷 Korea</b><span>Fanbases · Events</span></div>
+            <div class="country-row"><b>🇺🇸 USA</b><span>Fanbases · Events</span></div>
+            <div class="country-row"><b>🇮🇳 India</b><span>Fanbases · Events</span></div>
+            <div class="country-row"><b>🇵🇭 Philippines</b><span>Fanbases · Events</span></div>
+            <div class="country-row"><b>🇮🇩 Indonesia</b><span>Fanbases · Events</span></div>
+            <div class="country-row"><b>🇧🇷 Brazil</b><span>Fanbases · Events</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="events">
+        <div class="block-head">
+          <div><span class="eyebrow">Meet Up</span><h2>ARMY Events</h2></div>
+          <p class="desc">Cupsleeve events, birthday projects, and gatherings near you.</p>
+        </div>
+        <div class="calendar-list">
+          <div class="cal-row"><span class="cal-date">TBA</span><span>Cupsleeve event — add your city</span><span class="cal-type">Cupsleeve</span></div>
+          <div class="cal-row"><span class="cal-date">TBA</span><span>Birthday project — add details</span><span class="cal-type">Birthday</span></div>
+        </div>
+      </section>
+
+      <section class="block" id="projects">
+        <div class="block-head">
+          <div><span class="eyebrow">Get Involved</span><h2>Fan Project Hub</h2></div>
+          <p class="desc">Discover and support ARMY-led projects worldwide.</p>
+        </div>
+        <div class="news-grid">
+          <div class="project-card">
+            <span class="tag community">Community</span>
+            <h3>Sample charity project</h3>
+            <p style="font-size:0.85rem;color:#645d4d;">Add real project details, organizer, and goal here.</p>
+            <div class="progress-track"><div class="progress-fill" style="width:40%"></div></div>
+          </div>
+          <div class="project-card">
+            <span class="tag community">Community</span>
+            <h3>Sample birthday project</h3>
+            <p style="font-size:0.85rem;color:#645d4d;">Add real project details, organizer, and goal here.</p>
+            <div class="progress-track"><div class="progress-fill" style="width:65%"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="achievements">
+        <div class="block-head">
+          <div><span class="eyebrow">Milestones</span><h2>Achievement Archive</h2></div>
+          <p class="desc">Chart records, certifications, and global milestones.</p>
+        </div>
+        <div class="explore-grid">
+          <div class="explore-card"><span class="icon">🏆</span><h3>Billboard</h3><p>Chart history &amp; records</p></div>
+          <div class="explore-card"><span class="icon">🎧</span><h3>Streaming Milestones</h3><p>Spotify &amp; YouTube records</p></div>
+          <div class="explore-card"><span class="icon">📜</span><h3>Guinness World Records</h3><p>Official record archive</p></div>
+          <div class="explore-card"><span class="icon">🎖️</span><h3>Awards</h3><p>Full award show history</p></div>
+        </div>
+      </section>
+
+      <section class="block" id="dictionary">
+        <div class="block-head">
+          <div><span class="eyebrow">Learn the Lingo</span><h2>ARMY Dictionary</h2></div>
+          <p class="desc">Fandom terms explained simply.</p>
+        </div>
+        <div class="calendar-list" style="padding:8px 20px;">
+          <div class="dict-item"><div class="dict-term">Borahae (보라해)</div><div class="dict-def">"I purple you" — coined by V, meaning trust and love that lasts.</div></div>
+          <div class="dict-item"><div class="dict-term">OT7</div><div class="dict-def">"One True 7" — loving and supporting all seven members equally.</div></div>
+          <div class="dict-item"><div class="dict-term">Bangtan Bomb</div><div class="dict-def">Short behind-the-scenes video clips posted on the official channel.</div></div>
+          <div class="dict-item"><div class="dict-term">FESTA</div><div class="dict-def">BTS's annual anniversary celebration around their June debut date.</div></div>
+          <div class="dict-item"><div class="dict-term">Bias / Bias Wrecker</div><div class="dict-def">Your favorite member, and the one who unexpectedly steals that spot.</div></div>
+        </div>
+      </section>
+
+      <section class="block" id="toolbox" style="border-bottom:none;">
+        <div class="block-head"><div><span class="eyebrow">Handy</span><h2>Army Toolbox</h2></div></div>
+        <div class="tools-grid">
+          <div class="explore-card"><span class="icon">🕐</span><h3>Time-Zone Converter</h3><p>Convert KST to your local time</p></div>
+          <div class="explore-card"><span class="icon">📅</span><h3>Release Calendar</h3><p>Never miss a comeback</p></div>
+          <div class="explore-card"><span class="icon">🔗</span><h3>Official Links</h3><p>Verified BTS &amp; member links</p></div>
+          <button class="explore-card" style="text-align:left;" onclick="showPage('page-new-army')"><span class="icon">🌱</span><h3>New ARMY Guide</h3><p style="color:var(--violet); font-weight:600;">Open guide →</p></button>
+        </div>
+      </section>
+
+      <footer>
+        <div>💜 ARMY HQ — built by and for ARMY, worldwide.</div>
+        <a class="yt" href="https://www.youtube.com/@bts_votings" target="_blank" rel="noopener">▶ Created by @bts_votings on YouTube</a>
+      </footer>
+    </div>
+
+  </main>
 </div>
-
-<!-- ============ WELCOME / SIGN-IN MODAL ============ -->
-<div class="modal-overlay" id="welcomeModal">
-  <div class="modal-box">
-    <h2>Welcome to ARMY HEADQUARTERS</h2>
-    <p>Set a display name so the site can remember your missions, streak, and preferences on this device. This is not a real account — nothing is sent to a server, and no personal info is required.</p>
-    <input type="text" id="nameInput" placeholder="Pick a display name (e.g. Jimin_ARMY)" maxlength="24">
-    <div class="modal-actions">
-      <button class="btn primary" id="saveNameBtn" style="flex:1;">Continue</button>
-    </div>
-    <div class="modal-skip"><a id="skipNameBtn">Continue as Guest instead</a></div>
-  </div>
-</div>
-
-<!-- ============ NOTIFICATION PERMISSION MODAL ============ -->
-<div class="modal-overlay" id="notifModal">
-  <div class="modal-box">
-    <h2>Turn on notifications?</h2>
-    <p>Get notified about teaser drops, voting deadlines, and streaming parties. You can change this anytime from the bell icon.</p>
-    <div class="modal-actions">
-      <button class="btn primary" id="notifYesBtn" style="flex:1;">Yes, notify me</button>
-      <button class="btn" id="notifNoBtn" style="flex:1;">Not now</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
-const pageMeta = {
-  home:{title:'Home', eyebrow:'Discover'},
-  songs:{title:'Song Library', eyebrow:'Discover'},
-  albums:{title:'Album Library', eyebrow:'Discover'},
-  links:{title:'Official Links', eyebrow:'Discover'},
-  timeline:{title:'Release Timeline', eyebrow:'Discover'},
-  milestones:{title:'Milestones', eyebrow:'Streaming'},
-  missions:{title:'Daily Missions', eyebrow:'Streaming'},
-  events:{title:'Event Tracker', eyebrow:'Streaming'},
-  voting:{title:'Voting Hub', eyebrow:'Voting & Charts'},
-  charts:{title:'Charts & Shows', eyebrow:'Voting & Charts'},
-  pulse:{title:'Global Pulse', eyebrow:'Global ARMY'},
-  worldmap:{title:'World Map', eyebrow:'Global ARMY'},
-  timezone:{title:'Time Zone Board', eyebrow:'Global ARMY'},
-  announcements:{title:'Announcements', eyebrow:'Global ARMY'},
-  fanchants:{title:'Fanchants', eyebrow:'Global ARMY'},
-  members:{title:'Members', eyebrow:'Data'},
-  archive:{title:'Records & Archive', eyebrow:'Data'},
-  guide:{title:'ARMY Guide', eyebrow:'Data'},
-};
+  // ---------- Page switching ----------
+  function showPage(pageId, sectionId){
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
 
-function goToPage(id){
-  if(!pageMeta[id]) return;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const target = document.getElementById('page-'+id);
-  if(target) target.classList.add('active');
-  document.querySelectorAll('.sb-link').forEach(l=>l.classList.toggle('active', l.dataset.page===id));
-  document.getElementById('pageTitle').textContent = pageMeta[id].title;
-  document.getElementById('pageEyebrow').textContent = pageMeta[id].eyebrow;
-  document.querySelector('.content').scrollTop = 0;
-  window.scrollTo({top:0, behavior:'instant'});
-  document.getElementById('sidebar').classList.remove('open');
-  closePanels();
-}
-document.querySelectorAll('.sb-link').forEach(l=>l.addEventListener('click', ()=>goToPage(l.dataset.page)));
-document.querySelectorAll('[data-goto]').forEach(el=>el.addEventListener('click', ()=>goToPage(el.dataset.goto)));
-document.getElementById('mobileToggle').addEventListener('click', ()=>document.getElementById('sidebar').classList.toggle('open'));
-goToPage('home');
+    document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-page') === pageId);
+    });
 
-/* =========================================================
-   CLOCK
-========================================================= */
-function tickClock(){ document.getElementById('localClock').textContent = new Date().toLocaleTimeString(); }
-setInterval(tickClock,1000); tickClock();
+    window.scrollTo(0, 0);
+    toggleSidebar(false);
 
-/* =========================================================
-   LOCAL STORAGE HELPERS
-========================================================= */
-function ls_get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-function ls_set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3200);
-}
-
-/* =========================================================
-   DISPLAY NAME / "ACCOUNT" (device-local only)
-========================================================= */
-function applyProfile(name){
-  document.getElementById('profileName').textContent = name;
-  document.getElementById('avInitial').textContent = name.trim().charAt(0).toUpperCase() || '?';
-  document.getElementById('ppName').textContent = name;
-}
-
-const savedName = ls_get('armyhq_displayname');
-if(savedName){
-  applyProfile(savedName);
-} else {
-  document.getElementById('welcomeModal').classList.add('show');
-}
-
-document.getElementById('saveNameBtn').addEventListener('click', ()=>{
-  const val = document.getElementById('nameInput').value.trim();
-  const name = val || 'Guest';
-  ls_set('armyhq_displayname', name);
-  applyProfile(name);
-  document.getElementById('welcomeModal').classList.remove('show');
-  maybeAskNotifications();
-});
-document.getElementById('skipNameBtn').addEventListener('click', ()=>{
-  ls_set('armyhq_displayname', 'Guest');
-  applyProfile('Guest');
-  document.getElementById('welcomeModal').classList.remove('show');
-  maybeAskNotifications();
-});
-
-document.getElementById('editNameBtn').addEventListener('click', ()=>{
-  closePanels();
-  document.getElementById('nameInput').value = ls_get('armyhq_displayname')||'';
-  document.getElementById('welcomeModal').classList.add('show');
-});
-document.getElementById('forgetMeBtn').addEventListener('click', ()=>{
-  if(confirm('Forget this device? This clears your display name, missions, streak, and preferences stored in this browser.')){
-    localStorage.clear();
-    location.reload();
+    if(sectionId){
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 50);
+    }
   }
-});
 
-/* =========================================================
-   NOTIFICATION OPT-IN
-========================================================= */
-function maybeAskNotifications(){
-  const answered = ls_get('armyhq_notif_choice');
-  if(!answered){
-    setTimeout(()=>document.getElementById('notifModal').classList.add('show'), 300);
-  } else {
-    applyNotifState(answered);
+  // ---------- Welcome modal ----------
+  const modal = document.getElementById('welcomeModal');
+  const nameInput = document.getElementById('displayNameInput');
+  const notifToggle = document.getElementById('notifToggle');
+  const enterBtn = document.getElementById('enterHqBtn');
+  const profileBtn = document.getElementById('profileBtn');
+
+  function closeModal(){
+    const name = nameInput.value.trim();
+    const wantsNotif = notifToggle.checked;
+
+    if(name){
+      try{ localStorage.setItem('armyhq_display_name', name); }catch(e){}
+      profileBtn.textContent = '👤 ' + name;
+    }
+    try{ localStorage.setItem('armyhq_notifications', wantsNotif ? 'yes' : 'no'); }catch(e){}
+
+    if(wantsNotif && 'Notification' in window){
+      Notification.requestPermission();
+    }
+
+    modal.style.display = 'none';
   }
-}
-function applyNotifState(choice){
-  document.getElementById('notifDot').style.display = choice==='yes' ? 'block' : 'none';
-}
-document.getElementById('notifYesBtn').addEventListener('click', ()=>{
-  ls_set('armyhq_notif_choice','yes');
-  applyNotifState('yes');
-  document.getElementById('notifModal').classList.remove('show');
-  showToast('Notifications turned on.');
-  renderNotifications();
-});
-document.getElementById('notifNoBtn').addEventListener('click', ()=>{
-  ls_set('armyhq_notif_choice','no');
-  applyNotifState('no');
-  document.getElementById('notifModal').classList.remove('show');
-});
-if(!savedName){
-  // will be asked right after the welcome modal
-} else {
-  maybeAskNotifications();
-}
 
-const sampleNotifs = [
-  {title:'Teaser schedule posted', time:'Just now'},
-  {title:'New voting round is open', time:'2h ago'},
-  {title:'Streaming party starting soon', time:'5h ago'},
-];
-function renderNotifications(){
-  const list = document.getElementById('notifList');
-  list.innerHTML = '';
-  sampleNotifs.forEach(n=>{
-    const div = document.createElement('div');
-    div.className = 'notif-item';
-    div.innerHTML = `<div class="n-title">${n.title}</div><div class="n-time">${n.time}</div>`;
-    list.appendChild(div);
+  enterBtn.addEventListener('click', closeModal);
+  nameInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') closeModal(); });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    let savedName = null;
+    try{ savedName = localStorage.getItem('armyhq_display_name'); }catch(e){}
+    if(savedName){
+      modal.style.display = 'none';
+      profileBtn.textContent = '👤 ' + savedName;
+    } else {
+      modal.style.display = 'flex';
+    }
+    document.querySelector('.nav-link[data-page="page-home"]').classList.add('active');
   });
-}
-renderNotifications();
 
-/* =========================================================
-   TOP-RIGHT PANELS (notifications / profile)
-========================================================= */
-function closePanels(){
-  document.getElementById('notifPanel').classList.remove('show');
-  document.getElementById('profilePanel').classList.remove('show');
-}
-document.getElementById('notifBtn').addEventListener('click', (e)=>{
-  e.stopPropagation();
-  document.getElementById('profilePanel').classList.remove('show');
-  document.getElementById('notifPanel').classList.toggle('show');
-});
-document.getElementById('profileChip').addEventListener('click', (e)=>{
-  e.stopPropagation();
-  document.getElementById('notifPanel').classList.remove('show');
-  document.getElementById('profilePanel').classList.toggle('show');
-});
-document.addEventListener('click', closePanels);
+  // ---------- Sidebar mobile toggle ----------
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarScrim = document.getElementById('sidebarScrim');
 
-/* =========================================================
-   MISSIONS / XP / STREAK
-========================================================= */
-function refreshDoneCount(){
-  const boxes = document.querySelectorAll('.checklist input[type=checkbox]');
-  const done = Array.from(boxes).filter(b=>b.checked).length;
-  document.getElementById('doneToday').textContent = done + '/' + boxes.length;
-  document.getElementById('homeDoneToday').textContent = done + '/' + boxes.length + ' done today';
-  let xp = 0;
-  boxes.forEach(b=>{ if(b.checked) xp += parseInt(b.dataset.xp||'0',10); });
-  ls_set('armyhq_xp', String(xp));
-  document.getElementById('xpNum').textContent = xp;
-}
-document.querySelectorAll('.checklist input[type=checkbox]').forEach(cb=>{
-  const saved = ls_get('armyhq_'+cb.id);
-  if(saved==='1'){ cb.checked = true; cb.closest('li').classList.add('checked'); }
-  cb.addEventListener('change', ()=>{
-    ls_set('armyhq_'+cb.id, cb.checked ? '1':'0');
-    cb.closest('li').classList.toggle('checked', cb.checked);
-    if(cb.dataset.xp) refreshDoneCount();
-  });
-});
-refreshDoneCount();
-document.getElementById('streakNum').textContent = ls_get('armyhq_streak') || '0';
-
-/* =========================================================
-   TIME ZONE BOARD
-========================================================= */
-const zones = [
-  {city:'Seoul (KST)', tz:'Asia/Seoul'},
-  {city:'Los Angeles', tz:'America/Los_Angeles'},
-  {city:'New York', tz:'America/New_York'},
-  {city:'São Paulo', tz:'America/Sao_Paulo'},
-  {city:'London', tz:'Europe/London'},
-  {city:'Paris', tz:'Europe/Paris'},
-  {city:'New Delhi', tz:'Asia/Kolkata'},
-  {city:'Manila', tz:'Asia/Manila'},
-  {city:'Jakarta', tz:'Asia/Jakarta'},
-  {city:'Sydney', tz:'Australia/Sydney'},
-];
-function renderTZ(){
-  const kstVal = document.getElementById('kstInput').value || '00:00';
-  const [h,m] = kstVal.split(':').map(Number);
-  const now = new Date();
-  const kstNowStr = now.toLocaleString('en-US',{timeZone:'Asia/Seoul'});
-  const kstNow = new Date(kstNowStr);
-  kstNow.setHours(h, m, 0, 0);
-  const utcFromKst = new Date(kstNow.getTime() - (9*60*60*1000) + (kstNow.getTimezoneOffset()*60*1000));
-  const grid = document.getElementById('tzGrid');
-  grid.innerHTML = '';
-  zones.forEach(z=>{
-    const timeStr = utcFromKst.toLocaleString('en-US',{timeZone:z.tz, hour:'2-digit', minute:'2-digit', hour12:true});
-    const dayStr = utcFromKst.toLocaleString('en-US',{ timeZone:z.tz, weekday:'short' });
-    const div = document.createElement('div');
-    div.className='tz-card';
-    div.innerHTML = `<div class="tz-city">${z.city}</div><div class="tz-time">${timeStr}</div><div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">${dayStr}</div>`;
-    grid.appendChild(div);
-  });
-}
-document.getElementById('kstInput').addEventListener('input', renderTZ);
-renderTZ();
-
-/* =========================================================
-   WORLD MAP / COUNTRY HQ
-========================================================= */
-const countries = [
-  {flag:'🇰🇷', name:'Korea', note:'Home base'},
-  {flag:'🇺🇸', name:'USA', note:'BTS ARMY USA network'},
-  {flag:'🇮🇳', name:'India', note:'Multiple regional fanbases'},
-  {flag:'🇧🇷', name:'Brazil', note:'Streaming-heavy fanbase'},
-  {flag:'🇯🇵', name:'Japan', note:'Long-running local fanclub'},
-  {flag:'🇵🇭', name:'Philippines', note:'Active event organizers'},
-  {flag:'🇮🇩', name:'Indonesia', note:'Large streaming teams'},
-  {flag:'🇬🇧', name:'UK', note:'BTS ARMY UK'},
-  {flag:'🇲🇽', name:'Mexico', note:'Cup-sleeve event organizers'},
-  {flag:'🇫🇷', name:'France', note:'Local meetup groups'},
-  {flag:'🇹🇭', name:'Thailand', note:'Active voting teams'},
-  {flag:'🇩🇪', name:'Germany', note:'Local fanclub'},
-];
-function renderCountries(){
-  const grid = document.getElementById('countryGrid');
-  grid.innerHTML = '';
-  countries.forEach(c=>{
-    const div = document.createElement('div');
-    div.className = 'country-card';
-    div.innerHTML = `<div class="flag">${c.flag}</div><div class="cname">${c.name}</div><div class="cnote">${c.note}</div>`;
-    div.addEventListener('click', ()=>showCountryDetail(c));
-    grid.appendChild(div);
-  });
-}
-function showCountryDetail(c){
-  const box = document.getElementById('countryDetail');
-  box.style.display = 'block';
-  box.innerHTML = `
-    <div class="meta">${c.flag} ${c.name} Headquarters</div>
-    <h3>${c.name} ARMY</h3>
-    <p>${c.note}. Add this country's real fanbase accounts, local projects, and streaming/voting teams here.</p>
-    <p style="font-size:12px;color:var(--ink-soft);">Template section — replace with verified local fanbase info and links.</p>
-  `;
-  box.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-renderCountries();
-
-/* =========================================================
-   ESCAPE KEY CLOSES MODALS/PANELS
-========================================================= */
-document.addEventListener('keydown', (e)=>{
-  if(e.key==='Escape'){ closePanels(); }
-});
+  function toggleSidebar(open){
+    sidebar.classList.toggle('open', open);
+    sidebarScrim.classList.toggle('open', open);
+  }
+  sidebarToggle.addEventListener('click', () => toggleSidebar(!sidebar.classList.contains('open')));
+  sidebarScrim.addEventListener('click', () => toggleSidebar(false));
 </script>
 
 </body>
 </html>
+
