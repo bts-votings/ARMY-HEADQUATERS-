@@ -530,14 +530,14 @@
           <p class="desc">A quick snapshot of BTS and each member today.</p>
         </div>
         <div class="member-row" id="homeMemberRow">
-          <div class="member-card" onclick="showView('member','rm')"><div class="name">BTS</div><div class="status"><span class="dot"></span>On break — group schedule TBA</div></div>
-          <div class="member-card" onclick="showView('member','rm')"><div class="name">RM</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','jin')"><div class="name">Jin</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','suga')"><div class="name">SUGA</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','jhope')"><div class="name">j-hope</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','jimin')"><div class="name">Jimin</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','v')"><div class="name">V</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
-          <div class="member-card" onclick="showView('member','jungkook')"><div class="name">Jung Kook</div><div class="status"><span class="dot"></span>Latest activity pending update</div></div>
+          <div class="member-card" onclick="showView('member','rm')"><div class="name">BTS</div><div class="status"><span class="dot"></span>ARIRANG World Tour — ongoing through Mar 2027</div></div>
+          <div class="member-card" onclick="showView('member','rm')"><div class="name">RM</div><div class="status"><span class="dot"></span>On ARIRANG World Tour — North America leg</div></div>
+          <div class="member-card" onclick="showView('member','jin')"><div class="name">Jin</div><div class="status"><span class="dot"></span>On ARIRANG World Tour — North America leg</div></div>
+          <div class="member-card" onclick="showView('member','suga')"><div class="name">SUGA</div><div class="status"><span class="dot"></span>On ARIRANG World Tour — North America leg</div></div>
+          <div class="member-card" onclick="showView('member','jhope')"><div class="name">j-hope</div><div class="status"><span class="dot"></span>On ARIRANG World Tour — North America leg</div></div>
+          <div class="member-card" onclick="showView('member','jimin')"><div class="name">Jimin</div><div class="status"><span class="dot"></span>On ARIRANG World Tour — North America leg</div></div>
+          <div class="member-card" onclick="showView('member','v')"><div class="name">V</div><div class="status"><span class="dot"></span>Weverse LIVE on Aug 12 — now on ARIRANG tour</div></div>
+          <div class="member-card" onclick="showView('member','jungkook')"><div class="name">Jung Kook</div><div class="status"><span class="dot"></span>Weverse LIVE on Aug 12 — now on ARIRANG tour</div></div>
         </div>
       </section>
 
@@ -549,21 +549,21 @@
         <div class="news-grid" id="homeNewsGrid">
           <div class="news-card" onclick="showView('news','n1')">
             <span class="tag official">Official</span>
-            <h3>Sample announcement headline</h3>
-            <p>Replace this placeholder with a real update pulled from Weverse or BIGHIT's official channels.</p>
-            <div class="meta">Source: Official · Just now</div>
+            <h3>BTS World Tour ARIRANG — North America leg in full swing</h3>
+            <p>85 dates across 34 cities. Recent stops: East Rutherford, Foxborough, and Baltimore.</p>
+            <div class="meta">Source: BIGHIT Music · Aug 13, 2026</div>
           </div>
           <div class="news-card" onclick="showView('news','n2')">
             <span class="tag community">Community</span>
-            <h3>Sample fan-reported update</h3>
-            <p>Community-sourced info should always be labeled as such until officially confirmed.</p>
-            <div class="meta">Source: Community · 2h ago</div>
+            <h3>V &amp; Jung Kook host Weverse LIVE ahead of Baltimore shows</h3>
+            <p>The duo went live on Weverse, sharing tour updates and fun moments with fans.</p>
+            <div class="meta">Source: Weverse · Aug 12, 2026</div>
           </div>
           <div class="news-card" onclick="showView('news','n3')">
             <span class="tag official">Official</span>
-            <h3>Sample release note</h3>
-            <p>Album, single, or content release information goes here once confirmed.</p>
-            <div class="meta">Source: Official · 5h ago</div>
+            <h3>ARIRANG album released — first studio album in nearly 6 years</h3>
+            <p>14-track album featuring Diplo, Kevin Parker, JPEGMAFIA &amp; more. Lead single "Swim" hit #1 worldwide.</p>
+            <div class="meta">Source: BIGHIT Music · Mar 20, 2026</div>
           </div>
         </div>
       </section>
@@ -577,8 +577,8 @@
             <div class="label">Next Anniversary (June 13)</div>
             <div class="timer" id="cdAnniversary">-- D -- H -- M</div>
           </div>
-          <div class="countdown-card"><div class="label">Next Release</div><div class="timer">TBA</div></div>
-          <div class="countdown-card"><div class="label">Next Event</div><div class="timer">TBA</div></div>
+          <div class="countdown-card"><div class="label">ARIRANG World Tour</div><div class="timer">Ongoing</div></div>
+          <div class="countdown-card"><div class="label">Tour Finale — Manila</div><div class="timer" id="cdTourFinale">-- D -- H -- M</div></div>
         </div>
       </section>
 
@@ -737,10 +737,10 @@
           <p class="desc">Every release, show, and milestone in one place.</p>
         </div>
         <div class="calendar-list" id="exploreCalendarList">
-          <div class="cal-row" onclick="showView('event','e1')"><span class="cal-date">TBA</span><span>Group activity announcement</span><span class="cal-type">Event</span></div>
+          <div class="cal-row" onclick="showView('event','e1')"><span class="cal-date">Mar 20</span><span>ARIRANG album release</span><span class="cal-type">Music</span></div>
           <div class="cal-row" onclick="showView('event','e2')"><span class="cal-date">13 Jun</span><span>BTS Debut Anniversary</span><span class="cal-type">Anniversary</span></div>
-          <div class="cal-row" onclick="showView('event','e3')"><span class="cal-date">TBA</span><span>Next comeback window</span><span class="cal-type">Music</span></div>
-          <div class="cal-row" onclick="showView('event','e4')"><span class="cal-date">TBA</span><span>FESTA planning window</span><span class="cal-type">Event</span></div>
+          <div class="cal-row" onclick="showView('event','e3')"><span class="cal-date">Apr 9</span><span>ARIRANG World Tour kicks off — Seoul</span><span class="cal-type">Event</span></div>
+          <div class="cal-row" onclick="showView('event','e4')"><span class="cal-date">Mar 14, 2027</span><span>ARIRANG World Tour finale — Manila</span><span class="cal-type">Event</span></div>
         </div>
         <button class="btn" onclick="showView('calendar')" style="margin-top:16px;">Open full calendar →</button>
       </section>
@@ -1044,7 +1044,8 @@ const ALBUMS = [
   {id:'mots-persona', title:'Map of the Soul: Persona', year:2019, date:'April 12, 2019', type:'Mini Album', tracks:['Intro: Persona','Boy With Luv','Mikrokosmos','Make It Right','Home','Jamais Vu','Dionysus','Outro: Persona']},
   {id:'mots7', title:'Map of the Soul: 7', year:2020, date:'February 21, 2020', type:'Studio Album', tracks:['Intro: Persona','Boy With Luv','ON','UGH!','00:00','Black Swan','We Are Bulletproof: The Eternal','Moon','Respect','Friends','Jamais Vu','Filter','My Time','Louder than Bombs','Dionysus','Outro: Ego']},
   {id:'be', title:'BE', year:2020, date:'November 20, 2020', type:'Studio Album', tracks:['Life Goes On','Fly to My Room','Blue & Grey','Telepathy','Dis-ease','Stay','Dynamite','Outro']},
-  {id:'proof', title:'PROOF', year:2022, date:'June 10, 2022', type:'Anthology Album', tracks:['Born Singer','No More Dream','N.O','ON','War of Hormone','Boy in Luv','Fake Love','IDOL','Dynamite','Butter','For Youth','Run','Spring Day','Yet To Come','Quotation Mark','BTS Cypher Pt.3']}
+  {id:'proof', title:'PROOF', year:2022, date:'June 10, 2022', type:'Anthology Album', tracks:['Born Singer','No More Dream','N.O','ON','War of Hormone','Boy in Luv','Fake Love','IDOL','Dynamite','Butter','For Youth','Run','Spring Day','Yet To Come','Quotation Mark','BTS Cypher Pt.3']},
+  {id:'arirang', title:'ARIRANG', year:2026, date:'March 20, 2026', type:'Studio Album', tracks:['Body to Body','Hooligan','Aliens','FYA','2.0','No. 29','Swim','Merry Go Round','Normal','Like Animals','They Don\'t Know \'bout Us','One More Night','Please','Into the Sun']}
 ];
 
 const ERAS = [
@@ -1061,7 +1062,7 @@ const ERAS = [
   {year:'2023', title:'Solo Era Begins', albums:['FACE (Jimin)','D-DAY (SUGA)','Layover (V)','GOLDEN (Jung Kook)','Jack In The Box (j-hope)'], events:['Jin enlists','j-hope enlists','SUGA enlists','Jimin FACE & MUSE','V Layover','Jung Kook GOLDEN','Seven #1 on Hot 100'], desc:'The solo era. Each member releases solo music and begins military service.'},
   {year:'2024', title:'Continued Solo Work', albums:['Right Place, Wrong Person (RM)','Happy (Jin)','Hope on the Street (j-hope)'], events:['RM RPWP album','Jin Happy album','j-hope Hope on the Street','Members continue military service'], desc:'More solo releases while members serve. Jin and j-hope release new music.'},
   {year:'2025', title:'Service & Reunion', albums:[], events:['Jin completes service (June 2024)','j-hope completes service','SUGA completes service','Full group reunion anticipated'], desc:'Members complete their military service and the full group reunion approaches.'},
-  {year:'present', title:'Present & Future', albums:[], events:['Solo projects continuing','Full group reunion planning','New era on the horizon'], desc:'The next chapter of BTS begins as all members reunite.'}
+  {year:'2026', title:'ARIRANG — The Comeback', albums:['ARIRANG'], events:['ARIRANG album release (March 20, 2026)','Lead single "Swim" hits #1 worldwide','ARIRANG World Tour kicks off in Seoul (April 9, 2026)','85-date world tour across 34 cities','North America leg: East Rutherford, Foxborough, Baltimore','Tour runs through March 2027'], desc:'BTS returns with ARIRANG, their first studio album in nearly six years, named after the iconic Korean folk song. A massive 85-date world tour follows.'}
 ];
 
 const COUNTRIES = {
@@ -1116,10 +1117,10 @@ const COUNTRIES = {
 };
 
 const EVENTS_DATA = [
-  {id:'e1', title:'Group Activity Announcement', date:'TBA', time:'TBA', location:'TBA', country:'South Korea', city:'Seoul', type:'Event', organizer:'BIGHIT MUSIC', desc:'Official group activity announcement. Details will be confirmed through Weverse.', source:'Weverse'},
+  {id:'e1', title:'ARIRANG Album Release', date:'March 20, 2026', time:'12 AM KST', location:'Worldwide', country:'South Korea', city:'Seoul', type:'Music', organizer:'BIGHIT MUSIC', desc:'BTS released ARIRANG, their sixth Korean-language and tenth overall studio album. Named after the iconic Korean folk song, it is the group\'s first release after their hiatus for mandatory military service. The 14-track album features collaborations with Diplo, Kevin Parker, JPEGMAFIA, Teezo Touchdown, and more. Lead single "Swim" debuted at #1 on charts worldwide.', source:'Official'},
   {id:'e2', title:'BTS Debut Anniversary', date:'June 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Seoul / Online', type:'Anniversary', organizer:'BIGHIT MUSIC / ARMY', desc:'BTS\'s debut anniversary celebrated worldwide with FESTA content, fan projects, and events.', source:'Official'},
-  {id:'e3', title:'Next Comeback Window', date:'TBA', time:'TBA', location:'TBA', country:'South Korea', city:'Seoul', type:'Music', organizer:'BIGHIT MUSIC', desc:'The next BTS group comeback window. No official date announced yet.', source:'Official'},
-  {id:'e4', title:'FESTA Planning Window', date:'TBA', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online', type:'Event', organizer:'BIGHIT MUSIC', desc:'FESTA is BTS\'s annual anniversary celebration with daily content drops leading up to June 13.', source:'Official'},
+  {id:'e3', title:'ARIRANG World Tour — Seoul Kickoff', date:'April 9, 2026', time:'7 PM KST', location:'Goyang Stadium', country:'South Korea', city:'Goyang', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour kicks off in Goyang, South Korea. Spanning 85 dates across 34 cities, the tour runs from April 2026 through March 2027.', source:'Official'},
+  {id:'e4', title:'ARIRANG World Tour Finale — Manila', date:'March 14, 2027', time:'TBA', location:'Philippine Arena', country:'Philippines', city:'Manila', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour concludes in Manila, Philippines on March 14, 2027, wrapping up an 85-date journey across 34 cities worldwide.', source:'Official'},
   {id:'e5', title:'Cupsleeve Event — Add Your City', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Cupsleeve', organizer:'Local ARMY', desc:'Cupsleeve events are fan-organized cafe takeovers celebrating BTS milestones. Add your city\'s event here.', source:'Community'},
   {id:'e6', title:'Birthday Project — Add Details', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Birthday', organizer:'Local ARMY', desc:'Birthday projects celebrate BTS members\' birthdays with charity drives, cafe events, and more. Add details for your local project.', source:'Community'},
   {id:'e7', title:'Jimin Birthday', date:'October 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online / Local', type:'Birthday', organizer:'ARMY worldwide', desc:'Jimin\'s birthday celebrated with fan projects, charity drives, and social media trends worldwide.', source:'Community'},
@@ -1202,9 +1203,9 @@ const DICTIONARY = [
 ];
 
 const NEWS_DATA = {
-  n1: {title:'Sample announcement headline', tag:'official', source:'Official', time:'Just now', body:'Replace this placeholder with a real update pulled from Weverse or BIGHIT\'s official channels. This is where official announcements will appear once connected to live feeds.', link:'#'},
-  n2: {title:'Sample fan-reported update', tag:'community', source:'Community', time:'2h ago', body:'Community-sourced info should always be labeled as such until officially confirmed. This is where fan-reported updates will appear.', link:'#'},
-  n3: {title:'Sample release note', tag:'official', source:'Official', time:'5h ago', body:'Album, single, or content release information goes here once confirmed. This is where release notes will appear.', link:'#'}
+  n1: {title:'BTS World Tour ARIRANG — North America leg in full swing', tag:'official', source:'BIGHIT Music', time:'Aug 13, 2026', body:'BTS are currently on their ARIRANG World Tour, with 85 dates across 34 cities. The North America leg kicked off in East Rutherford, NJ (Aug 1-2), then Foxborough, MA (Aug 5-6), and Baltimore, MD (Aug 10). The tour continues through Latin America, Southeast Asia, and concludes in Manila on March 14, 2027. The setlist features fan favorites like I Need U, Mikrokosmos, Fire, Mic Drop, Come Over, and new tracks from ARIRANG including lead single "Swim" and "Into the Sun."', link:'https://en.wikipedia.org/wiki/Arirang_World_Tour'},
+  n2: {title:'V & Jung Kook host Weverse LIVE ahead of Baltimore shows', tag:'community', source:'Weverse', time:'Aug 12, 2026', body:'V (Taehyung) and Jung Kook went live on Weverse on August 12, 2026, sharing tour updates, fun interactions, and memorable moments with fans ahead of their Baltimore tour stop. The stream drew millions of viewers and trended worldwide on social media.', link:'#'},
+  n3: {title:'ARIRANG album released — first studio album in nearly 6 years', tag:'official', source:'BIGHIT Music', time:'Mar 20, 2026', body:'BTS released their sixth Korean-language and tenth overall studio album, ARIRANG, on March 20, 2026, via BigHit Music. Named after the iconic Korean folk song, it is the group\'s first release after their hiatus for mandatory military service. The 14-track album features collaborations with Diplo, Kevin Parker (Tame Impala), JPEGMAFIA, Teezo Touchdown, and more. Lead single "Swim" debuted at #1 on charts worldwide. A deluxe vinyl bonus track, "Come Over" (produced by Suga), was released on April 3.', link:'https://en.wikipedia.org/wiki/Arirang_(album)'}
 };
 
 const ARCHIVE_SERIES = {
@@ -2130,18 +2131,28 @@ function updateCountdown(){
   const diff = target - now;
 
   if(diff <= 0){
-    document.getElementById('cdAnniversary').innerHTML = 'Today is the day! 💜';
-    return;
+    const el = document.getElementById('cdAnniversary');
+    if(el) el.innerHTML = 'Today is the day! 💜';
+  } else {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const el = document.getElementById('cdAnniversary');
+    if(el){
+      el.innerHTML = '<div class="cd-live"><div class="cd-unit"><div class="cd-num">' + days + '</div><div class="cd-lbl">Days</div></div><div class="cd-unit"><div class="cd-num">' + hours + '</div><div class="cd-lbl">Hours</div></div><div class="cd-unit"><div class="cd-num">' + mins + '</div><div class="cd-lbl">Mins</div></div><div class="cd-unit"><div class="cd-num">' + secs + '</div><div class="cd-lbl">Secs</div></div></div>';
+    }
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-  const el = document.getElementById('cdAnniversary');
-  if(el){
-    el.innerHTML = '<div class="cd-live"><div class="cd-unit"><div class="cd-num">' + days + '</div><div class="cd-lbl">Days</div></div><div class="cd-unit"><div class="cd-num">' + hours + '</div><div class="cd-lbl">Hours</div></div><div class="cd-unit"><div class="cd-num">' + mins + '</div><div class="cd-lbl">Mins</div></div><div class="cd-unit"><div class="cd-num">' + secs + '</div><div class="cd-lbl">Secs</div></div></div>';
+  const finaleTarget = new Date('2027-03-14T00:00:00');
+  const finaleDiff = finaleTarget - now;
+  const finaleEl = document.getElementById('cdTourFinale');
+  if(finaleEl && finaleDiff > 0){
+    const fDays = Math.floor(finaleDiff / (1000 * 60 * 60 * 24));
+    const fHours = Math.floor((finaleDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const fMins = Math.floor((finaleDiff % (1000 * 60 * 60)) / (1000 * 60));
+    finaleEl.textContent = fDays + 'D ' + fHours + 'H ' + fMins + 'M';
   }
 }
 
@@ -2362,3 +2373,4 @@ document.addEventListener('keydown', function(e){
 
 </body>
 </html>
+
