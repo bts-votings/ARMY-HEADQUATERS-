@@ -304,6 +304,7 @@
   .link-list{ display:flex; flex-direction:column; gap:8px; }
   .link-item{ display:flex; align-items:center; gap:10px; padding:10px 14px; background: var(--paper-dim); border-radius:10px; text-decoration:none; color: var(--ink); font-size:0.85rem; font-weight:600; transition: background 0.15s ease; }
   .link-item:hover{ background: #e8e0d0; }
+  .link-item.disabled{ opacity:0.55; cursor:default; pointer-events:none; }
 
   /* World map */
   .world-map{ position:relative; width:100%; aspect-ratio: 2.1 / 1; background: linear-gradient(135deg, #e8e0f0, #f5f0e8); border-radius:12px; overflow:hidden; border:1px solid var(--line); }
@@ -361,6 +362,8 @@
   .episode-info{ flex:1; }
   .episode-info .ep-title{ font-weight:600; font-size:0.88rem; }
   .episode-info .ep-meta{ font-size:0.75rem; color:#7a715f; margin-top:2px; }
+  .episode-action{ font-size:0.8rem; font-weight:600; color: var(--violet); }
+  .episode-action.disabled{ color:#a39a85; }
 
   /* MV card */
   .mv-card{ background:#fff; border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; cursor:pointer; transition: box-shadow 0.15s ease, transform 0.15s ease; }
@@ -369,6 +372,7 @@
   .mv-body{ padding:16px; }
   .mv-body h3{ font-size:0.95rem; margin-bottom:4px; }
   .mv-body p{ font-size:0.78rem; color:#7a715f; margin:0; }
+  .mv-body .mv-watch{ font-size:0.75rem; font-weight:700; color: var(--violet); margin-top:8px; display:inline-block; }
 
   /* Achievement item */
   .ach-item{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:10px; }
@@ -392,6 +396,11 @@
   .badge{ display:inline-block; font-size:0.65rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:3px 9px; border-radius:999px; margin-left:8px; }
   .badge.verified{ background:#d4edda; color:#155724; }
   .badge.featured{ background:#e7ddfb; color: var(--violet-deep); }
+  .badge.demo{ background:#fde2e2; color:#8a1c1c; }
+
+  /* Demo banner */
+  .demo-banner{ background:#fff6e6; border:1px solid var(--gold); border-radius:12px; padding:14px 18px; font-size:0.85rem; color:#8a5e12; margin-bottom:24px; display:flex; gap:10px; align-items:flex-start; }
+  .demo-banner .demo-icon{ font-size:1.1rem; }
 
   /* Official links directory */
   .official-link{ display:flex; align-items:center; gap:12px; padding:14px 18px; background:#fff; border:1px solid var(--line); border-radius:12px; text-decoration:none; color: var(--ink); font-weight:600; font-size:0.88rem; transition: box-shadow 0.15s ease, transform 0.15s ease; }
@@ -410,6 +419,9 @@
     .search-box{ display:none; }
   }
 </style>
+  <meta property="og:image" content="https://bolt.new/static/og_default.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://bolt.new/static/og_default.png">
 </head>
 <body>
 
@@ -591,12 +603,12 @@
           <div class="tool-card voting">
             <h3>🗳️ Voting HQ</h3>
             <p>Track and cast your votes for BTS across every platform.</p>
-            <a class="btn" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ</a>
+            <a class="btn" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ ↗</a>
           </div>
           <div class="tool-card streaming">
             <h3>🎧 Streaming HQ</h3>
             <p>Streaming guides and party links for every release.</p>
-            <a class="btn" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ</a>
+            <a class="btn" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ ↗</a>
           </div>
         </div>
       </section>
@@ -668,13 +680,13 @@
             <div class="num">01</div>
             <h3>🗳️ Vote</h3>
             <p>Voting on award show and chart platforms genuinely helps BTS's recognition. Use Voting HQ to track ongoing votes and how to cast them.</p>
-            <a class="btn primary" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ</a>
+            <a class="btn primary" href="https://bts-voting-tracker.vercel.app/" target="_blank" rel="noopener">Open Voting HQ ↗</a>
           </div>
           <div class="support-card">
             <div class="num">02</div>
             <h3>🎧 Stream</h3>
             <p>Streaming on official platforms (Spotify, Apple Music, YouTube) is one of the most impactful things ARMY does. Use Streaming HQ for guides and party links.</p>
-            <a class="btn primary" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ</a>
+            <a class="btn primary" href="https://bora-streams.vercel.app/" target="_blank" rel="noopener">Open Streaming HQ ↗</a>
           </div>
           <div class="support-card">
             <div class="num">03</div>
@@ -1117,21 +1129,21 @@ const COUNTRIES = {
 };
 
 const EVENTS_DATA = [
-  {id:'e1', title:'ARIRANG Album Release', date:'March 20, 2026', time:'12 AM KST', location:'Worldwide', country:'South Korea', city:'Seoul', type:'Music', organizer:'BIGHIT MUSIC', desc:'BTS released ARIRANG, their sixth Korean-language and tenth overall studio album. Named after the iconic Korean folk song, it is the group\'s first release after their hiatus for mandatory military service. The 14-track album features collaborations with Diplo, Kevin Parker, JPEGMAFIA, Teezo Touchdown, and more. Lead single "Swim" debuted at #1 on charts worldwide.', source:'Official'},
-  {id:'e2', title:'BTS Debut Anniversary', date:'June 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Seoul / Online', type:'Anniversary', organizer:'BIGHIT MUSIC / ARMY', desc:'BTS\'s debut anniversary celebrated worldwide with FESTA content, fan projects, and events.', source:'Official'},
-  {id:'e3', title:'ARIRANG World Tour — Seoul Kickoff', date:'April 9, 2026', time:'7 PM KST', location:'Goyang Stadium', country:'South Korea', city:'Goyang', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour kicks off in Goyang, South Korea. Spanning 85 dates across 34 cities, the tour runs from April 2026 through March 2027.', source:'Official'},
-  {id:'e4', title:'ARIRANG World Tour Finale — Manila', date:'March 14, 2027', time:'TBA', location:'Philippine Arena', country:'Philippines', city:'Manila', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour concludes in Manila, Philippines on March 14, 2027, wrapping up an 85-date journey across 34 cities worldwide.', source:'Official'},
-  {id:'e5', title:'Cupsleeve Event — Add Your City', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Cupsleeve', organizer:'Local ARMY', desc:'Cupsleeve events are fan-organized cafe takeovers celebrating BTS milestones. Add your city\'s event here.', source:'Community'},
-  {id:'e6', title:'Birthday Project — Add Details', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Birthday', organizer:'Local ARMY', desc:'Birthday projects celebrate BTS members\' birthdays with charity drives, cafe events, and more. Add details for your local project.', source:'Community'},
-  {id:'e7', title:'Jimin Birthday', date:'October 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online / Local', type:'Birthday', organizer:'ARMY worldwide', desc:'Jimin\'s birthday celebrated with fan projects, charity drives, and social media trends worldwide.', source:'Community'},
-  {id:'e8', title:'V Birthday', date:'December 30', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online / Local', type:'Birthday', organizer:'ARMY worldwide', desc:'V\'s birthday celebrated with fan projects, charity drives, and social media trends worldwide.', source:'Community'}
+  {id:'e1', title:'ARIRANG Album Release', date:'March 20, 2026', time:'12 AM KST', location:'Worldwide', country:'South Korea', city:'Seoul', type:'Music', organizer:'BIGHIT MUSIC', desc:'BTS released ARIRANG, their sixth Korean-language and tenth overall studio album. Named after the iconic Korean folk song, it is the group\'s first release after their hiatus for mandatory military service. The 14-track album features collaborations with Diplo, Kevin Parker, JPEGMAFIA, Teezo Touchdown, and more. Lead single "Swim" debuted at #1 on charts worldwide.', source:'Official', link:'https://en.wikipedia.org/wiki/Arirang_(album)'},
+  {id:'e2', title:'BTS Debut Anniversary', date:'June 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Seoul / Online', type:'Anniversary', organizer:'BIGHIT MUSIC / ARMY', desc:'BTS\'s debut anniversary celebrated worldwide with FESTA content, fan projects, and events.', source:'Official', link:''},
+  {id:'e3', title:'ARIRANG World Tour — Seoul Kickoff', date:'April 9, 2026', time:'7 PM KST', location:'Goyang Stadium', country:'South Korea', city:'Goyang', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour kicks off in Goyang, South Korea. Spanning 85 dates across 34 cities, the tour runs from April 2026 through March 2027.', source:'Official', link:'https://en.wikipedia.org/wiki/Arirang_World_Tour'},
+  {id:'e4', title:'ARIRANG World Tour Finale — Manila', date:'March 14, 2027', time:'TBA', location:'Philippine Arena', country:'Philippines', city:'Manila', type:'Event', organizer:'BIGHIT MUSIC', desc:'The ARIRANG World Tour concludes in Manila, Philippines on March 14, 2027, wrapping up an 85-date journey across 34 cities worldwide.', source:'Official', link:''},
+  {id:'e5', title:'Cupsleeve Event — Add Your City', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Cupsleeve', organizer:'Local ARMY', desc:'Cupsleeve events are fan-organized cafe takeovers celebrating BTS milestones. Add your city\'s event here.', source:'Community', link:''},
+  {id:'e6', title:'Birthday Project — Add Details', date:'TBA', time:'TBA', location:'Your City', country:'Worldwide', city:'TBA', type:'Birthday', organizer:'Local ARMY', desc:'Birthday projects celebrate BTS members\' birthdays with charity drives, cafe events, and more. Add details for your local project.', source:'Community', link:''},
+  {id:'e7', title:'Jimin Birthday', date:'October 13', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online / Local', type:'Birthday', organizer:'ARMY worldwide', desc:'Jimin\'s birthday celebrated with fan projects, charity drives, and social media trends worldwide.', source:'Community', link:''},
+  {id:'e8', title:'V Birthday', date:'December 30', time:'All day', location:'Worldwide', country:'Worldwide', city:'Online / Local', type:'Birthday', organizer:'ARMY worldwide', desc:'V\'s birthday celebrated with fan projects, charity drives, and social media trends worldwide.', source:'Community', link:''}
 ];
 
 const PROJECTS_DATA = [
-  {id:'p1', title:'Sample Charity Project', type:'Charity', country:'India', city:'Mumbai', organizer:'Indian ARMY', goal:'₹50,000', raised:'₹32,000', percent:64, deadline:'TBA', desc:'A charity drive organized by Indian ARMY to celebrate BTS milestones. Add real project details here.', verified:false, featured:false, links:['#']},
-  {id:'p2', title:'Sample Birthday Project', type:'Birthday', country:'Philippines', city:'Manila', organizer:'ARMY PH', goal:'₱100,000', raised:'₱65,000', percent:65, deadline:'TBA', desc:'A birthday project for a BTS member organized by Filipino ARMY. Add real project details here.', verified:false, featured:false, links:['#']},
-  {id:'p3', title:'One in a Million Charity Drive', type:'Charity', country:'USA', city:'Los Angeles', organizer:'BTS USA', goal:'$10,000', raised:'$7,800', percent:78, deadline:'TBA', desc:'A charity drive supporting children\'s education in honor of BTS. Organized by US-based ARMY.', verified:true, featured:true, links:['#']},
-  {id:'p4', title:'Purple Hearts Cupsleeve Event', type:'Cupsleeve', country:'Indonesia', city:'Jakarta', organizer:'ARMY Indonesia', goal:'500 participants', raised:'320 registered', percent:64, deadline:'TBA', desc:'A cupsleeve cafe event in Jakarta celebrating BTS\'s anniversary. Add real event details here.', verified:false, featured:false, links:['#']}
+  {id:'p1', title:'Sample Charity Project', type:'Charity', country:'India', city:'Mumbai', organizer:'Indian ARMY', goal:'₹50,000', raised:'₹32,000', percent:64, deadline:'TBA', desc:'A charity drive organized by Indian ARMY to celebrate BTS milestones. Add real project details here.', verified:false, featured:false, demo:true, projectLink:'', joinLink:'', donateLink:'', organizerLink:''},
+  {id:'p2', title:'Sample Birthday Project', type:'Birthday', country:'Philippines', city:'Manila', organizer:'ARMY PH', goal:'₱100,000', raised:'₱65,000', percent:65, deadline:'TBA', desc:'A birthday project for a BTS member organized by Filipino ARMY. Add real project details here.', verified:false, featured:false, demo:true, projectLink:'', joinLink:'', donateLink:'', organizerLink:''},
+  {id:'p3', title:'One in a Million Charity Drive', type:'Charity', country:'USA', city:'Los Angeles', organizer:'BTS USA', goal:'$10,000', raised:'$7,800', percent:78, deadline:'TBA', desc:'A charity drive supporting children\'s education in honor of BTS. Organized by US-based ARMY.', verified:true, featured:true, demo:false, projectLink:'', joinLink:'', donateLink:'', organizerLink:''},
+  {id:'p4', title:'Purple Hearts Cupsleeve Event', type:'Cupsleeve', country:'Indonesia', city:'Jakarta', organizer:'ARMY Indonesia', goal:'500 participants', raised:'320 registered', percent:64, deadline:'TBA', desc:'A cupsleeve cafe event in Jakarta celebrating BTS\'s anniversary. Add real event details here.', verified:false, featured:false, demo:true, projectLink:'', joinLink:'', donateLink:'', organizerLink:''}
 ];
 
 const ACHIEVEMENTS = {
@@ -1204,7 +1216,7 @@ const DICTIONARY = [
 
 const NEWS_DATA = {
   n1: {title:'BTS World Tour ARIRANG — North America leg in full swing', tag:'official', source:'BIGHIT Music', time:'Aug 13, 2026', body:'BTS are currently on their ARIRANG World Tour, with 85 dates across 34 cities. The North America leg kicked off in East Rutherford, NJ (Aug 1-2), then Foxborough, MA (Aug 5-6), and Baltimore, MD (Aug 10). The tour continues through Latin America, Southeast Asia, and concludes in Manila on March 14, 2027. The setlist features fan favorites like I Need U, Mikrokosmos, Fire, Mic Drop, Come Over, and new tracks from ARIRANG including lead single "Swim" and "Into the Sun."', link:'https://en.wikipedia.org/wiki/Arirang_World_Tour'},
-  n2: {title:'V & Jung Kook host Weverse LIVE ahead of Baltimore shows', tag:'community', source:'Weverse', time:'Aug 12, 2026', body:'V (Taehyung) and Jung Kook went live on Weverse on August 12, 2026, sharing tour updates, fun interactions, and memorable moments with fans ahead of their Baltimore tour stop. The stream drew millions of viewers and trended worldwide on social media.', link:'#'},
+  n2: {title:'V & Jung Kook host Weverse LIVE ahead of Baltimore shows', tag:'community', source:'Weverse', time:'Aug 12, 2026', body:'V (Taehyung) and Jung Kook went live on Weverse on August 12, 2026, sharing tour updates, fun interactions, and memorable moments with fans ahead of their Baltimore tour stop. The stream drew millions of viewers and trended worldwide on social media.', link:''},
   n3: {title:'ARIRANG album released — first studio album in nearly 6 years', tag:'official', source:'BIGHIT Music', time:'Mar 20, 2026', body:'BTS released their sixth Korean-language and tenth overall studio album, ARIRANG, on March 20, 2026, via BigHit Music. Named after the iconic Korean folk song, it is the group\'s first release after their hiatus for mandatory military service. The 14-track album features collaborations with Diplo, Kevin Parker (Tame Impala), JPEGMAFIA, Teezo Touchdown, and more. Lead single "Swim" debuted at #1 on charts worldwide. A deluxe vinyl bonus track, "Come Over" (produced by Suga), was released on April 3.', link:'https://en.wikipedia.org/wiki/Arirang_(album)'}
 };
 
@@ -1213,37 +1225,37 @@ const ARCHIVE_SERIES = {
     id:'run-bts', title:'RUN BTS', icon:'🎬', desc:'BTS\'s longest-running variety show. Over 160 episodes of games, challenges, and chaos.',
     episodes:[
       {num:1, title:'Episode 1', date:'August 1, 2015', members:'All 7', link:'https://www.youtube.com/results?search_query=run+bts+episode+1'},
-      {num:50, title:'Episode 50', date:'January 2, 2018', members:'All 7', link:'#'},
-      {num:100, title:'Episode 100', date:'April 7, 2020', members:'All 7', link:'#'},
-      {num:130, title:'Episode 130', date:'October 5, 2021', members:'All 7', link:'#'},
-      {num:140, title:'Episode 140', date:'August 16, 2022', members:'All 7', link:'#'},
-      {num:160, title:'Episode 160 (Finale)', date:'October 2022', members:'All 7', link:'#'}
+      {num:50, title:'Episode 50', date:'January 2, 2018', members:'All 7', link:''},
+      {num:100, title:'Episode 100', date:'April 7, 2020', members:'All 7', link:''},
+      {num:130, title:'Episode 130', date:'October 5, 2021', members:'All 7', link:''},
+      {num:140, title:'Episode 140', date:'August 16, 2022', members:'All 7', link:''},
+      {num:160, title:'Episode 160 (Finale)', date:'October 2022', members:'All 7', link:''}
     ]
   },
   'bon-voyage': {
     id:'bon-voyage', title:'Bon Voyage', icon:'✈️', desc:'BTS travel reality show. Each season takes the members to a different country.',
     episodes:[
-      {num:1, title:'Season 1 — Norway', date:'July 2016', members:'All 7', link:'#'},
-      {num:2, title:'Season 2 — Hawaii', date:'June 2017', members:'All 7', link:'#'},
-      {num:3, title:'Season 3 — Malta', date:'September 2018', members:'All 7', link:'#'},
-      {num:4, title:'Season 4 — New Zealand', date:'November 2019', members:'All 7', link:'#'}
+      {num:1, title:'Season 1 — Norway', date:'July 2016', members:'All 7', link:''},
+      {num:2, title:'Season 2 — Hawaii', date:'June 2017', members:'All 7', link:''},
+      {num:3, title:'Season 3 — Malta', date:'September 2018', members:'All 7', link:''},
+      {num:4, title:'Season 4 — New Zealand', date:'November 2019', members:'All 7', link:''}
     ]
   },
   'in-the-soop': {
     id:'in-the-soop', title:'In the SOOP', icon:'🏡', desc:'A healing reality show where BTS relax in a forest cabin and pursue personal hobbies.',
     episodes:[
-      {num:1, title:'Season 1', date:'August 2020', members:'All 7', link:'#'},
-      {num:2, title:'Season 2', date:'October 2021', members:'All 7', link:'#'},
-      {num:3, title:'Friendcation (V, Park Seo-joon, etc.)', date:'July 2022', members:'V', link:'#'}
+      {num:1, title:'Season 1', date:'August 2020', members:'All 7', link:''},
+      {num:2, title:'Season 2', date:'October 2021', members:'All 7', link:''},
+      {num:3, title:'Friendcation (V, Park Seo-joon, etc.)', date:'July 2022', members:'V', link:''}
     ]
   },
   'bts-bomb': {
     id:'bts-bomb', title:'BTS Bomb', icon:'💥', desc:'Short behind-the-scenes clips from BTS\'s daily life, concerts, and music video shoots.',
     episodes:[
-      {num:1, title:'Behind the scenes — Dynamite MV', date:'August 2020', members:'All 7', link:'#'},
-      {num:2, title:'Backstage — Permission to Dance', date:'July 2021', members:'All 7', link:'#'},
-      {num:3, title:'Behind the scenes — Yet To Come', date:'June 2022', members:'All 7', link:'#'},
-      {num:4, title:'Practice room — ON', date:'February 2020', members:'All 7', link:'#'}
+      {num:1, title:'Behind the scenes — Dynamite MV', date:'August 2020', members:'All 7', link:''},
+      {num:2, title:'Backstage — Permission to Dance', date:'July 2021', members:'All 7', link:''},
+      {num:3, title:'Behind the scenes — Yet To Come', date:'June 2022', members:'All 7', link:''},
+      {num:4, title:'Practice room — ON', date:'February 2020', members:'All 7', link:''}
     ]
   }
 };
@@ -1293,7 +1305,6 @@ function showPage(pageId, sectionId){
 
   document.querySelectorAll('.nav-link').forEach(link => {
     const dp = link.getAttribute('data-page');
-    const dv = link.getAttribute('data-view');
     link.classList.remove('active');
     if(dp === pageId) link.classList.add('active');
   });
@@ -1320,7 +1331,6 @@ function showView(view, id){
   window.scrollTo(0, 0);
   toggleSidebar(false);
 
-  // Update sidebar active state
   document.querySelectorAll('.nav-link').forEach(link => {
     link.classList.remove('active');
     if(link.getAttribute('data-view') === view) link.classList.add('active');
@@ -1562,7 +1572,12 @@ function renderEventDetail(id){
   html += '</div>';
 
   html += '<div class="detail-section"><h3>Description</h3><p style="font-size:0.9rem; color:#54503f; max-width:600px;">' + e.desc + '</p></div>';
-  html += '<div class="detail-section"><h3>Official Source</h3><a class="link-item" href="' + (e.link || '#') + '" target="_blank" rel="noopener">📖 Read official source →</a></div>';
+
+  if(e.link){
+    html += '<div class="detail-section"><h3>Official Source</h3><a class="link-item" href="' + e.link + '" target="_blank" rel="noopener">📖 Read official source ↗</a></div>';
+  } else {
+    html += '<div class="detail-section"><h3>Official Source</h3><p style="font-size:0.85rem; color:#7a715f;">No external source link available for this event.</p></div>';
+  }
   html += '</div>';
   return html;
 }
@@ -1639,11 +1654,20 @@ function renderArchiveSeries(id){
   html += '<p style="font-size:0.9rem; color:#54503f; max-width:600px; margin-bottom:24px;">' + s.desc + '</p>';
   html += '<div class="calendar-list">';
   s.episodes.forEach(ep => {
-    html += '<div class="episode-row" onclick="window.open(\'' + ep.link + '\', \'_blank\')">';
-    html += '<div class="episode-num">EP ' + ep.num + '</div>';
-    html += '<div class="episode-info"><div class="ep-title">' + ep.title + '</div><div class="ep-meta">' + ep.date + ' · Members: ' + ep.members + '</div></div>';
-    html += '<span style="color:var(--violet); font-size:0.8rem; font-weight:600;">Watch →</span>';
-    html += '</div>';
+    const hasLink = ep.link && ep.link.length > 0;
+    if(hasLink){
+      html += '<div class="episode-row" onclick="window.open(\'' + ep.link + '\', \'_blank\')">';
+      html += '<div class="episode-num">EP ' + ep.num + '</div>';
+      html += '<div class="episode-info"><div class="ep-title">' + ep.title + '</div><div class="ep-meta">' + ep.date + ' · Members: ' + ep.members + '</div></div>';
+      html += '<span class="episode-action">Watch on YouTube ↗</span>';
+      html += '</div>';
+    } else {
+      html += '<div class="episode-row" style="cursor:default;">';
+      html += '<div class="episode-num">EP ' + ep.num + '</div>';
+      html += '<div class="episode-info"><div class="ep-title">' + ep.title + '</div><div class="ep-meta">' + ep.date + ' · Members: ' + ep.members + '</div></div>';
+      html += '<span class="episode-action disabled">🔒 Link coming soon</span>';
+      html += '</div>';
+    }
   });
   html += '</div></div>';
   return html;
@@ -1694,9 +1718,9 @@ function renderAlbumDetail(id){
 
   html += '<div class="detail-section"><h3>Listen on Official Platforms</h3>';
   html += '<div class="link-list">';
-  html += '<a class="link-item" href="https://open.spotify.com/artist/3Nrfpe0tUJi4Ly4iUEPie3" target="_blank" rel="noopener"><span class="ol-icon">🎧</span> Spotify <span class="ol-arrow">→</span></a>';
-  html += '<a class="link-item" href="https://music.apple.com/artist/bts/1155144755" target="_blank" rel="noopener"><span class="ol-icon">🍎</span> Apple Music <span class="ol-arrow">→</span></a>';
-  html += '<a class="link-item" href="https://www.youtube.com/@BTS" target="_blank" rel="noopener"><span class="ol-icon">▶</span> YouTube <span class="ol-arrow">→</span></a>';
+  html += '<a class="link-item" href="https://open.spotify.com/artist/3Nrfpe0tUJi4Ly4iUEPie3" target="_blank" rel="noopener"><span class="ol-icon">🎧</span> Open Spotify <span class="ol-arrow">↗</span></a>';
+  html += '<a class="link-item" href="https://music.apple.com/artist/bts/1155144755" target="_blank" rel="noopener"><span class="ol-icon">🍎</span> Open Apple Music <span class="ol-arrow">↗</span></a>';
+  html += '<a class="link-item" href="https://www.youtube.com/@BTS" target="_blank" rel="noopener"><span class="ol-icon">▶</span> Open YouTube <span class="ol-arrow">↗</span></a>';
   html += '</div></div>';
 
   html += '</div>';
@@ -1707,12 +1731,12 @@ function renderMVLibrary(){
   let html = breadcrumbs([{label:'BTS', action:'showView(\'discography\')'}, {label:'Discography', action:'showView(\'discography\')'}, {label:'Music Videos'}]);
   html += '<div class="detail-content" style="padding-top:32px;">';
   html += '<button class="back-btn" onclick="goBack()">← Back</button>';
-  html += '<div class="block-head"><div><span class="eyebrow">Official Videos</span><h2>Music Video Library</h2></div><p class="desc">Official BTS music videos from YouTube. Click to watch.</p></div>';
+  html += '<div class="block-head"><div><span class="eyebrow">Official Videos</span><h2>Music Video Library</h2></div><p class="desc">Official BTS music videos on YouTube. Click a card to open the video.</p></div>';
   html += '<div class="detail-grid">';
   MV_LIBRARY.forEach(mv => {
     html += '<div class="mv-card" onclick="window.open(\'' + mv.link + '\', \'_blank\')">';
     html += '<div class="mv-thumb">🎬</div>';
-    html += '<div class="mv-body"><h3>' + mv.title + '</h3><p>' + mv.date + ' · ' + mv.album + ' · ' + mv.views + ' views</p></div>';
+    html += '<div class="mv-body"><h3>' + mv.title + '</h3><p>' + mv.date + ' · ' + mv.album + ' · ' + mv.views + ' views</p><span class="mv-watch">Watch on YouTube ↗</span></div>';
     html += '</div>';
   });
   html += '</div></div>';
@@ -1826,12 +1850,16 @@ function renderProjectsView(){
   html += '<div class="detail-content" style="padding-top:32px;">';
   html += '<button class="back-btn" onclick="goBack()">← Back</button>';
   html += '<div class="block-head"><div><span class="eyebrow">Get Involved</span><h2>Fan Project Hub</h2></div><p class="desc">Discover and support ARMY-led projects worldwide. Click any project for details.</p></div>';
+
+  html += '<div class="demo-banner"><span class="demo-icon">⚠️</span><div><strong>Demo projects.</strong> These are sample entries to show how the section works. Real, verified projects with live join/donate links will replace them. Do not send money to any project until its links are verified.</div></div>';
+
   html += '<div class="news-grid">';
   PROJECTS_DATA.forEach(p => {
     html += '<div class="project-card" onclick="showView(\'project\',\'' + p.id + '\')">';
     html += '<span class="tag community">Community</span>';
     if(p.verified) html += '<span class="badge verified">Verified</span>';
     if(p.featured) html += '<span class="badge featured">Featured</span>';
+    if(p.demo) html += '<span class="badge demo">Demo</span>';
     html += '<h3 style="margin-top:8px;">' + p.title + '</h3>';
     html += '<p style="font-size:0.85rem;color:#645d4d;">' + p.type + ' · ' + p.country + ' · ' + p.city + '</p>';
     html += '<div class="progress-label"><span>Raised: ' + p.raised + '</span><span>' + p.percent + '%</span></div>';
@@ -1853,9 +1881,14 @@ function renderProjectDetail(id){
   html += '<span class="tag community">Community</span>';
   if(p.verified) html += '<span class="badge verified">Verified</span>';
   if(p.featured) html += '<span class="badge featured">Featured</span>';
+  if(p.demo) html += '<span class="badge demo">Demo</span>';
   html += '</div>';
   html += favButton('project', p.id, p.title, '💜');
   html += '</div>';
+
+  if(p.demo){
+    html += '<div class="demo-banner" style="margin-bottom:24px;"><span class="demo-icon">⚠️</span><div><strong>Demo project.</strong> This is a sample entry. No live links are available yet — do not attempt to donate or join until this project is verified.</div></div>';
+  }
 
   html += '<div class="event-detail-card">';
   html += '<div class="info-row"><span class="ir-label">Type</span><span class="ir-value">' + p.type + '</span></div>';
@@ -1872,7 +1905,21 @@ function renderProjectDetail(id){
   html += '</div>';
 
   html += '<div class="detail-section"><h3>Description</h3><p style="font-size:0.9rem; color:#54503f; max-width:600px;">' + p.desc + '</p></div>';
-  html += '<div class="detail-section"><h3>Support This Project</h3><a class="link-item" href="' + (p.links[0]||'#') + '" target="_blank" rel="noopener"><span class="ol-icon">💜</span> View Project / Donate <span class="ol-arrow">→</span></a></div>';
+
+  html += '<div class="detail-section"><h3>Support This Project</h3>';
+  const hasAnyLink = p.projectLink || p.joinLink || p.donateLink || p.organizerLink;
+  if(!hasAnyLink){
+    html += '<p style="font-size:0.85rem; color:#7a715f;">Links for this project are not available yet. Please check back soon or contact the organizer directly.</p>';
+  } else {
+    html += '<div class="link-list">';
+    if(p.projectLink) html += '<a class="link-item" href="' + p.projectLink + '" target="_blank" rel="noopener"><span class="ol-icon">🔗</span> View Project <span class="ol-arrow">↗</span></a>';
+    if(p.joinLink) html += '<a class="link-item" href="' + p.joinLink + '" target="_blank" rel="noopener"><span class="ol-icon">🤝</span> Join / Volunteer <span class="ol-arrow">↗</span></a>';
+    if(p.donateLink) html += '<a class="link-item" href="' + p.donateLink + '" target="_blank" rel="noopener"><span class="ol-icon">💜</span> Donate <span class="ol-arrow">↗</span></a>';
+    if(p.organizerLink) html += '<a class="link-item" href="' + p.organizerLink + '" target="_blank" rel="noopener"><span class="ol-icon">📱</span> Organizer / Fanbase <span class="ol-arrow">↗</span></a>';
+    html += '</div>';
+  }
+  html += '</div>';
+
   html += '</div>';
   return html;
 }
@@ -1967,9 +2014,10 @@ function renderToolbox(){
 
   // Official Links
   html += '<div class="detail-section"><h3>🔗 Official Links Directory</h3>';
+  html += '<p style="font-size:0.78rem; color:#7a715f; margin-bottom:12px;">These links open external sites in a new tab ↗</p>';
   html += '<div class="link-list">';
   OFFICIAL_LINKS.forEach(l => {
-    html += '<a class="official-link" href="' + l.url + '" target="_blank" rel="noopener"><span class="ol-icon">' + l.icon + '</span> ' + l.name + ' <span class="ol-arrow">→</span></a>';
+    html += '<a class="official-link" href="' + l.url + '" target="_blank" rel="noopener"><span class="ol-icon">' + l.icon + '</span> ' + l.name + ' <span class="ol-arrow">↗</span></a>';
   });
   html += '</div></div>';
 
@@ -2011,7 +2059,11 @@ function renderNewsDetail(id){
   html += favButton('news', id, n.title, '📰');
   html += '</div>';
   html += '<div style="max-width:640px;"><p style="font-size:0.95rem; color:#54503f; line-height:1.7;">' + n.body + '</p></div>';
-  html += '<div class="detail-section"><h3>Source</h3><a class="link-item" href="' + n.link + '" target="_blank" rel="noopener"><span class="ol-icon">📖</span> Read Official Source <span class="ol-arrow">→</span></a></div>';
+  if(n.link){
+    html += '<div class="detail-section"><h3>Source</h3><a class="link-item" href="' + n.link + '" target="_blank" rel="noopener"><span class="ol-icon">📖</span> Read Official Source <span class="ol-arrow">↗</span></a></div>';
+  } else {
+    html += '<div class="detail-section"><h3>Source</h3><p style="font-size:0.85rem; color:#7a715f;">Source: ' + n.source + ' — no external link available for this article.</p></div>';
+  }
   html += '</div>';
   return html;
 }
@@ -2373,4 +2425,5 @@ document.addEventListener('keydown', function(e){
 
 </body>
 </html>
+
 
